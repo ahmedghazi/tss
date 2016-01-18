@@ -1,0 +1,29 @@
+extends layout
+
+prepend content
+    
+    section
+        article.open
+            article.video(id='#{video._id}')
+                div.article_inner
+                    div.row.article_header
+                        div.fiboA.title
+                            a(href='/api/g/#{video._id}', class='ajax_g')
+                                h2 #{video.title}
+                        div.fiboB
+                            div.span3
+                                h3.year #{video.year.getFullYear()}
+                            div.span3
+                                h3.rating #{video.rating}
+                            div.span3
+                                
+                  
+                    div.article_content
+                        
+                        if video.ost    
+                            include track
+                        else
+                            include no-soundtrack
+
+                    div.article_footer
+                    div.sepBlue

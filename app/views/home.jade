@@ -1,0 +1,24 @@
+extends layout
+
+prepend content
+    
+    section.liste
+        div.row.liste_header
+            div.fiboA VIDEO
+                
+            div.fiboB
+                div.span3 YEAR 
+                    a(href='/sort/year/asc' class='sort') ↑ 
+                    a(href='/sort/year/desc' class='sort') ↓ 
+                div.span3 RATING 
+                    a(href='/sort/rating/asc' class='sort') ↑ 
+                    a(href='/sort/rating/desc' class='sort') ↓ 
+            
+        div.sepBlue
+        div.liste_content
+            include liste
+        div.list_footer.row
+            div.fiboA
+            div.fiboB
+                input(type='hidden' value='1' id='page')
+                a(href='#' class='btn more') Moar
