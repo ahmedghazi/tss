@@ -8,45 +8,30 @@ var AjaxUtils = function(){
 	this.bindEvents = function(){
 		console.log("bindEvents")
 		
-		
-		
 		$("html").on("click", "a.ajax_g", function(event) {
 			event.preventDefault();
 			$("body").addClass('loading');
 
-			var st = $(this).parent().position().top - $("header").height();
-
 			arrTubeTapePlayer = [];
 			$(".article_content .ost").html("");
-			
 			$article = $(this).parents("article");
-
 			$("article").removeClass('open');
 			$article.addClass('open');
-			
+
+			var st = $(this).parent().position().top - $("header").height();
+
+			var url = $(this).attr("href");
+			var ws_url = $(this).attr("href").replace("/video/", "/api/g/");
+			var id = $(this).parents("article").attr("id");
+			var title = $(this).children("h2").text();
+			history.pushState({ws_url}, title, url);
+
 			$.ajax({
 			  method: "GET",
-			  url: $(this).attr("href"),
-			  //data: { name: "John", location: "Boston" }
+			  url: ws_url
 			})
 				.done(function( data ) {
 
-					/*var html = '<div class="ost_header row">';
-							html += '<div class="fiboA player_ost">';
-								
-								html += '<span class="control play">';
-									html += '<i class="fa fa-play"></i>  ';
-								html += '</span>';
-								
-							html += '</div>';
-							html += '<div class="fiboB">';
-								html += '<div class="span3">Part</div>';
-								html += '<div class="span3">Artist</div>';
-								html += '<div class="span3">Track</div>';
-							html += '</div>';
-						html += '</div>';
-					$article.find(".article_content").append(html);
-					*/
 					for(var i in data.ost){
 						var _TubeTapePlayer = new TubeTapePlayer($article, data.ost[i]);
 						_TubeTapePlayer.init();
@@ -54,7 +39,6 @@ var AjaxUtils = function(){
 						arrTubeTapePlayer.push(_TubeTapePlayer);
 					}
 
-					//$article.find(".article_content").show();
 					$("body").removeClass('loading');
 					$("html,body").animate({
 						scrollTop: st
@@ -75,10 +59,7 @@ var AjaxUtils = function(){
 			
 			$.ajax({
 				type: "GET",
-				//cache: false,
-				//url: 'https://gdata.youtube.com/feeds/api/playlists/'+keyword+'?start-index=1&max-results=50&v=2&alt=json',
-				url: '/page/'+page,
-				//dataType: "jsonp",
+				url: '/page/'+page
 			})
 				.done(function( html ) {
 					console.log(html);
@@ -91,7 +72,60 @@ var AjaxUtils = function(){
 				});
 		});
 
-	};
+		$(".morphsearch-submit").on('click', function(event) {
+			event.preventDefault();
+		
+			$(".morphsearch").toggleClass('open');
+			$("input.morphsearch-input").focus()
+		});
 
-	
+		$(".morphsearch-close").on('click', function(event) {
+			$(".morphsearch").removeClass('open');
+			setTimeout(function(){
+				$(".morphsearch-content").html("")
+			},1000);
+		});
+
+		$( "input.morphsearch-input" ).keyup(function() {
+			var val = $(this).val();
+			if(val.length > 3){
+				$.ajax({
+				  method: "GET",
+				  url: '/api/search/'+val
+				})
+					.done(function( data ) {
+						$(".morphsearch-content").html(data)
+				  	});
+			}
+			
+		});
+
+		$(".share").on("click", function(){
+			var url = window.location.href;
+			var title = document.title;
+			var fb_url = getFbUrl(url,title);
+			$("#fb").attr("href", fb_url);
+
+			var tw_url = getTwUrl(url,title);
+			$("#tw").attr("href", tw_url);
+
+			$(".sh_title").text("Share "+title)
+			$("#modal").show();
+		});
+	};
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

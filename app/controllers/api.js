@@ -247,4 +247,24 @@ router.get('/s/:id', function (req, res, next) {
     
 });
 
+router.get('/search/:term', function (req, res, next) {
+    
+    return Video
+        .find( { title : { $regex: req.params.term, $options: 'i' }})
+        .populate('ost')
+        .exec(function(err, videos) {
+            if (err) {
+                return next(err);
+            }
+
+            //res.send(videos);
+            return res.render('autocomplete-item', {
+                videos: videos
+            });
+        });
+    
+
+
+});
+
 

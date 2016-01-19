@@ -12,6 +12,12 @@
 a {
 	color: blue;
 }
+/* all */
+::-webkit-input-placeholder { color:blue; font-weight: 400 }
+::-moz-placeholder { color:blue; font-weight: 400  }
+:-ms-input-placeholder { color:blue; font-weight: 400  }
+input:-moz-placeholder { color:blue; font-weight: 400  }
+
 .float_left{float: left;}
 .float_right{float: right;}
 .align_right{text-align: right;}
@@ -52,6 +58,7 @@ header{
 	background-color: white;
 	width:100%;
   z-index: 1;
+  
 }
 
 section{
@@ -184,7 +191,7 @@ article.open .fiboA{padding-left: 10px;}
 /*------------------------------------*\
     PLAYLIST
 \*------------------------------------*/
-.ost_header{background-color: #F8F8F8;}
+.ost_header{background-color: #5454FC; color: white;}
 .ttp:nth-child(odd){background-color: #F8F8F8;}
 
 .player_ost .pause{display: none;}
@@ -257,3 +264,131 @@ article.open .fiboA{padding-left: 10px;}
 
 .fa-play,
 .fa-pause{line-height: 13px;}
+
+
+/*------------------------------------*\
+    MODAL
+\*------------------------------------*/
+.modal{
+  position: fixed; top: 57px;left: 0;
+  padding: 20px;
+  width: 100%; height: 100%;
+  background-color: white;
+  color: blue;
+  display: none;
+}
+
+.modal_title,
+.modal_content,
+.sh_title{
+  font-size: 7em;
+  color: blue;
+  text-align: left;
+}
+.sh_title{}
+.modal_header{border-bottom: 3px solid; margin-bottom: 20px;}
+.modal_content li{float: left; margin-right: 20px;}
+/*------------------------------------*\
+    SEARCH
+\*------------------------------------*/
+button[type='submit']{
+  border: none;
+  color: blue;
+  background-color: transparent;
+}
+.morphsearch .morphsearch-input{opacity: 0; width: 0; color: white}
+.morphsearch .morphsearch-submit{cursor: pointer;}
+.morphsearch .morphsearch-input,
+.morphsearch .morphsearch-submit{
+  padding: 0;
+  vertical-align: top;
+  font-size: 1em;
+  border:none;
+  color: blue;
+}
+
+.morphsearch.open{
+  position: fixed;top: 74px; left: 0;
+  padding: 0 20px;
+  height: calc(100% - 74px);
+  background-color: white;
+  width: 100%;
+  text-align: left;
+}
+
+.morphsearch.open .morphsearch-input,
+.morphsearch.open .morphsearch-submit{
+  font-size: 7em;
+  opacity: 1;
+  border-bottom: 3px solid blue;
+}
+.morphsearch.open .morphsearch-input {
+  opacity: 1;
+  width: 100%;
+}
+.morphsearch.open .morphsearch-submit{display: none;}
+
+
+input[type="search"] { /* reset normalize */
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box; 
+}
+
+.morphsearch-input:focus,
+.morphsearch-submit:focus {
+  outline: none;
+}
+
+.morphsearch-close {
+  width: 36px;
+  height: 36px;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  overflow: hidden;
+  text-indent: 100%;
+  cursor: pointer;
+  pointer-events: none;
+  opacity: 0;
+  /*-webkit-transform: scale3d(0,0,1);
+  transform: scale3d(0,0,1);*/
+}
+
+.morphsearch.open .morphsearch-close {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: scale3d(1,1,1);
+  transform: scale3d(1,1,1);
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+
+.morphsearch-close::before,
+.morphsearch-close::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  border-radius: 3px;
+
+  background: blue;
+}
+
+.morphsearch-close:hover.morphsearch-close::before,
+.morphsearch-close:hover.morphsearch-close::after {
+  opacity: 1;
+}
+
+.morphsearch-close::before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.morphsearch-close::after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}

@@ -113,3 +113,22 @@ function secondsToHms(d) {
     var s = Math.floor(d % 3600 % 60);
     return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
 }
+
+function getFbUrl(url, title){
+    var fbUrl = 'http://www.facebook.com/sharer.php?s=100';
+        fbUrl += '&p[title]='+encodeURIComponent(title);
+        //fbUrl += '&p[summary]=' + encodeURIComponent(liste);
+        fbUrl += '&p[url]=' + encodeURIComponent(url);
+        fbUrl += '&p[images][0]=' + '';
+
+    return fbUrl;
+}
+
+function getTwUrl(url, title){
+    var twUrl = 'https://twitter.com/intent/tweet';
+        twUrl += '?url='+ encodeURIComponent(url);
+        twUrl += '&text=nowplaying MixTubeSkate ' +encodeURIComponent(title);
+        twUrl +=  '&via=Bounews&lang=fr&hashtags=nowplaying,MixTubeSkate';
+
+    return twUrl;
+}

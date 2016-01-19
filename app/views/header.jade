@@ -8,6 +8,11 @@ div.fiboB
 
     div.span3
 
-    div.span3.align_right
-        a(href='/s') Search 
-            i.fa.fa-search
+    div.span3.align_right  
+        div#morphsearch.morphsearch.anime
+            form(method='post' id='' action='' class='morphsearch-form ')
+                input(name='s' class='morphsearch-input anime' placeholder='Search...' autocomplete='off')
+                button(type='submit' class='morphsearch-submit anime')
+                    i.fa.fa-search
+            div.morphsearch-content.liste
+            span.morphsearch-close

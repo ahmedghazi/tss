@@ -3,7 +3,7 @@ each video in videos
         div.article_inner
             div.row.article_header
                 div.fiboA.title
-                    a(href='/video/#{video._id}', class='ajax_g')
+                    a(href='/video/#{video._id}', class='')
                         h2 #{video.title}
                 div.fiboB
                     div.span3
@@ -16,18 +16,7 @@ each video in videos
                         
           
             div.article_content
-                div.ost_header.row
-                    div.fiboA.player_ost
-                        div.controls
-                            span.play
-                                i.fa.fa-play
-                            span.pause
-                                i.fa.fa-pause
-                    div.fiboB
-                        div.span3 Part
-                        div.span3 Artist
-                        div.span3 Track
-                div.ost
+                
 
             div.article_footer
             div.sepBlue
