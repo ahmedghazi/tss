@@ -109,8 +109,47 @@ var AjaxUtils = function(){
 			var tw_url = getTwUrl(url,title);
 			$("#tw").attr("href", tw_url);
 
-			$(".sh_title").text("Share "+title)
+			$(".sh .sh_title").text("Share "+title)
+			
+			$(".embed .sh_title").text("Embed "+title)
+			var embedurl = window.location.href.replace("video", "embed");
+			$("textarea[name='embedcode']").val(embedurl);
+
 			$("#modal").show();
+		});
+
+		$(".modal_close").on("click", function(){
+			$("#modal").hide();
+		});
+
+		$(".sh a").on("click", function(e){
+			e.preventDefault();
+
+			var url = $(this).attr("href");
+			popupwindow(url);
+		});
+		/*
+		$("textarea[name='embedcode']").on("click", function () {
+		   $(this).select();
+		});
+		*/
+		$("textarea[name='embedcode']").focus(function() {
+		    var $this = $(this);
+
+		    $this.select();
+
+		    window.setTimeout(function() {
+		        $this.select();
+		    }, 1);
+
+		    // Work around WebKit's little problem
+		    function mouseUpHandler() {
+		        // Prevent further mouseup intervention
+		        $this.off("mouseup", mouseUpHandler);
+		        return false;
+		    }
+
+		    $this.mouseup(mouseUpHandler);
 		});
 	};
 }

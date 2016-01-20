@@ -3,10 +3,12 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	http = require('http'),
 	cheerio = require('cheerio'),
+    _app,
 	Video = mongoose.model('Video'),
 	Track = mongoose.model('Track');
 
 module.exports = function (app) {
+    _app = app;
 	app.use('/video', router);
 };
 
@@ -25,7 +27,9 @@ router.get('/:id', function (req, res, next) {
                 //console.log(video)
                 //return res.send(video)
             	return res.render('video', {
-            	    title: 'THE SKATEBOARD OST',
+            	    title: _app.get('title'),
+                    description: _app.get('description'),
+                    url: req.getUrl(),
                     bodyclass: 'video',
             	    video: video,
             	}); 

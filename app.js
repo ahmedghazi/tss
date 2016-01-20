@@ -19,8 +19,17 @@ models.forEach(function (model) {
 });
 var app = express();
 app.set('title', 'THE SKATEBOARD SOUNDTRACKS');
+app.set('description', 'A PLACE FOR SKATEBOARD SOUNDTRACKS');
+app.use(function(req, res, next) {
+	req.getUrl = function() {
+	  return req.protocol + "://" + req.get('host') + req.originalUrl;
+	}
+	return next();
+});
 
 require('./config/express')(app, config);
+
+
 
 app.listen(config.port, function () {
   console.log('Express server listening on port ' + config.port);

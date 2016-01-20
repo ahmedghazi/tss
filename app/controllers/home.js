@@ -24,6 +24,8 @@ router.get('/', function (req, res, next) {
 	    //console.log(app.get('title'));
 	    return res.render('home', {
 	        title: _app.get('title'),
+	        description: _app.get('description'),
+	        url: req.getUrl(),
 	        bodyclass: 'home',
 	        videos: videos
 	    });
@@ -46,6 +48,8 @@ router.get('/page/:id', function (req, res, next) {
 	    //console.log(app.get('title'));
 	    return res.render('liste', {
 	        title: _app.get('title'),
+	        description: _app.get('description'),
+	        url: req.getUrl(),
 	        bodyclass: 'home',
 	        videos: videos
 	    });
@@ -66,6 +70,8 @@ router.get('/sort/year/:id', function (req, res, next) {
 	    //console.log(app.get('title'));
 	    return res.render('home', {
 	        title: _app.get('title'),
+	        description: _app.get('description'),
+	        url: req.getUrl(),
 	        bodyclass: 'home',
 	        videos: videos
 	    });
@@ -86,6 +92,8 @@ router.get('/sort/rating/:id', function (req, res, next) {
 	    //console.log(app.get('title'));
 	    return res.render('home', {
 	        title: _app.get('title'),
+	        description: _app.get('description'),
+	        url: req.getUrl(),
 	        bodyclass: 'home',
 	        videos: videos
 	    });

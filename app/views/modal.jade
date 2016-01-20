@@ -1,15 +1,20 @@
 div#modal.modal
 	div.modal_inner
-		div.modal_header
-			div.sh_title
+		div.modal_close.close
 		div.modal_content
-			ul
-				li
-					a(href='#' id='fb')
-						i.fa.fa-facebook
-				li
-					a(href='#' id='tw')
-						i.fa.fa-twitter
+			div.sh.row
+				h3.sh_title
+				ul
+					li
+						a(href='#' id='fb')
+							i.fa.fa-facebook
+					li
+						a(href='#' id='tw')
+							i.fa.fa-twitter
+			div.clear
+			div.embed.row
+				h3.sh_title Embed
+				textarea(name='embedcode')
 
 			
 				

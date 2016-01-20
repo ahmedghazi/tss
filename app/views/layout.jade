@@ -9,8 +9,14 @@ html(lang='en')
         link(rel='stylesheet', href='/css/reset.css')
         link(rel='stylesheet', href='/css/font-awesome.min.css')
         link(rel='stylesheet', href='/css/style.css')
-    meta(og:title='TSO - #{title}')
-    meta(og:description='A place to listen')
+
+    block fbog
+        meta(og:title='TSS - #{title}')
+        meta(og:site_name='TSS - #{title}')
+        meta(og:description='#{description}')
+        meta(og:url='#{url}')
+        meta(fb:app_id='')
+        meta(og:type='article')
     
     block js
         if ENV_DEVELOPMENT
@@ -39,3 +45,5 @@ html(lang='en')
         script(src='/js/ViewUtils.js')
         script(src='/js/app.js')
     
+
+
