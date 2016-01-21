@@ -25,7 +25,8 @@ var AjaxUtils = function(){
 			var id = $(this).parents("article").attr("id");
 			var title = $(this).children("h2").text();
 			history.pushState({ws_url}, title, url);
-
+			document.title = document.title+' - '+title;
+			
 			$.ajax({
 			  method: "GET",
 			  url: ws_url
@@ -101,17 +102,23 @@ var AjaxUtils = function(){
 		});
 
 		$(".share").on("click", function(){
+
 			var url = window.location.href;
 			var title = document.title;
+
+			$(".modal_header h3").text(title);
+
 			var fb_url = getFbUrl(url,title);
 			$("#fb").attr("href", fb_url);
 
 			var tw_url = getTwUrl(url,title);
 			$("#tw").attr("href", tw_url);
 
-			$(".sh .sh_title").text("Share "+title)
-			
-			$(".embed .sh_title").text("Embed "+title)
+			var mail_url = getMailUrl(url,title);
+			$("#mail").attr("href", mail_url);
+
+			//$(".sh .sh_title").text("Share ")
+			//$(".embed .sh_title").text("Embed");
 			var embedurl = window.location.href.replace("video", "embed");
 			$("textarea[name='embedcode']").val(embedurl);
 

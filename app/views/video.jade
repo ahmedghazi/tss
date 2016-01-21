@@ -1,4 +1,7 @@
 extends layout
+block title
+    title= title+' - '+video.title
+
 block fbog
     meta(og:title='THE SKATEBOARD SOUNDTRACKS - #{video.title}')
     meta(og:site_name='THE SKATEBOARD SOUNDTRACKS')

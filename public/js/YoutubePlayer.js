@@ -64,6 +64,19 @@ var YoutubePlayer = function(){
 			$("html").trigger("NEXT",[IDX]);
 		});
 		
+		$(".mute").on("click", function(){
+			if(player.getVolume() == 0){
+				$(this).children("i")
+					.removeClass("fa-volume-off")
+					.addClass("fa-volume-up");
+				player.setVolume(100);
+			}else{
+				$(this).children("i")
+					.removeClass("fa-volume-up")
+					.addClass("fa-volume-off");
+				player.setVolume(0);
+			}
+		});
 	};
 	
 	this.initPlayer = function(holder){

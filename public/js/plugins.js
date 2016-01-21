@@ -133,6 +133,14 @@ function getTwUrl(url, title){
     return twUrl;
 }
 
+function getMailUrl(url, title){
+    var mailUrl = 'mailto:';
+        mailUrl += '?subject=nowplaying MixTubeSkate '+ encodeURIComponent(title);
+        mailUrl += '&body=nowplaying MixTubeSkate ' +encodeURIComponent(title)+ ' : '+encodeURIComponent(url);
+
+    return mailUrl;
+}
+
 function popupwindow(url, title, w, h) {
     var left = (screen.width/2)-(w/2);
     var top = (screen.height/2)-(h/2);
