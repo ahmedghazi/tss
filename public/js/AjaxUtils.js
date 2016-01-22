@@ -32,18 +32,24 @@ var AjaxUtils = function(){
 			  url: ws_url
 			})
 				.done(function( data ) {
+					if(data.success == true){
+						for(var i in data.video.ost){
+							var _TubeTapePlayer = new TubeTapePlayer($article, data.video.ost[i]);
+							_TubeTapePlayer.init();
 
-					for(var i in data.ost){
-						var _TubeTapePlayer = new TubeTapePlayer($article, data.ost[i]);
-						_TubeTapePlayer.init();
+							arrTubeTapePlayer.push(_TubeTapePlayer);
+						}
 
-						arrTubeTapePlayer.push(_TubeTapePlayer);
+						$("body").removeClass('loading');
+						$("html,body").animate({
+							scrollTop: st
+						}, 1000)
+					}else{
+						var reponse = '<div class="row">... No soundtrack yet</div>';
+						$article.find(".article_content").append(reponse);
+						$("body").removeClass("loading");
 					}
-
-					$("body").removeClass('loading');
-					$("html,body").animate({
-						scrollTop: st
-					}, 1000)
+					
 			  	});
 		});
 

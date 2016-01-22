@@ -89,6 +89,7 @@ router.get('/insert/:id', function (req, res, next) {
 });
 
 router.get('/u/:id', function (req, res, next) {
+    console.log("u")
     return Video
         .findById(req.params.id)
         .exec(function(err, video) {
@@ -104,8 +105,9 @@ console.log(video)
                   , path: video.url
                   , method: 'GET'
                 };
-
+console.log(options)
             var request = http.get(options, function(ress){
+                console.log(ress)
                 if(ress.statusCode != 200) {
                    throw "Error: " + ress.statusCode; 
                 };
@@ -118,6 +120,7 @@ console.log(video)
                     //console.log(response_text)
                     $ = cheerio.load(response_text);
                     var len = $("#soundtracklist").find("tr").length;
+                    console.log(len)
                     if(len > 0){
                         $("#soundtracklist").find("tr").each(function(idx, tr) {
                             $(tr).find("td").each(function(_idx, td) {
@@ -146,7 +149,8 @@ console.log(video)
                                         
                                         if(idx == len-1){
                                             console.log(ost)
-                                    
+                                            
+    //return res.send(video);
                                             video.ost = ost;
                                             video.save(function (_err) {
                                                 if (!_err) {
@@ -167,6 +171,7 @@ console.log(video)
                         });// LOOP
                         //res.send(video)
                     }else{
+                        console.log("else")
                         //res.send(video);
                         return res.render('no-soundtrack', {
                             title: 'THE SKATEBOARD OST',
@@ -191,9 +196,10 @@ router.get('/g/:id', function (req, res, next) {
             }
             
             if(video.ost.length == 0){
-                res.redirect("/api/u/"+req.params.id);
+                //res.redirect("/api/u/"+req.params.id);
+                return res.send({success:false, video:video});
             }else{
-                return res.send(video);
+                return res.send({success:true, video:video});
             }
     });
 });
