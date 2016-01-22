@@ -203,6 +203,9 @@ article.open .fiboA{padding-left: 10px;}
 .share:hover{color: black;}
 
 article.open .share{display: block;}
+
+.article_footer{display: none;}
+article.open .article_footer{display: block;}
 /*------------------------------------*\
     PLAYLIST
 \*------------------------------------*/
