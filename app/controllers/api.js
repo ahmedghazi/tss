@@ -196,8 +196,8 @@ router.get('/g/:id', function (req, res, next) {
             }
             
             if(video.ost.length == 0){
-                //res.redirect("/api/u/"+req.params.id);
-                return res.send({success:false, video:video});
+                res.redirect("/api/u/"+req.params.id);
+                //return res.send({success:false, video:video});
             }else{
                 return res.send({success:true, video:video});
             }
