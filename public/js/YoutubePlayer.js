@@ -30,10 +30,7 @@ var YoutubePlayer = function(){
 	
 	this.bindEvents = function(){
 		$(document).keyup(function(evt) {
-		    //console.log(evt.keyCode)
 		    if (evt.keyCode == 32) {
-		    	//space = false;
-		    	//console.log(player.getPlayerState())
 		    	if(player.getPlayerState() == 1){
 		    		_this.pause();
 		    	}else{
@@ -77,6 +74,7 @@ var YoutubePlayer = function(){
 				player.setVolume(0);
 			}
 		});
+
 	};
 	
 	this.initPlayer = function(holder){

@@ -1,3 +1,9 @@
-div.fiboA
-div.fiboB
-    p No soutrack yet, a(href="api/submit/#{video._id}") Submit?
+extends layout
+
+prepend content
+    section
+        article
+            div.fiboA
+            div.fiboB
+                p No soutrack yet, 
+                    a(href="api/submit/#{video._id}") Submit?

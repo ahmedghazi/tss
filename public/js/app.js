@@ -1,4 +1,5 @@
 var ww,wh,fu,vu,au,prev_st,
+	SITE_NAME = 'THE SKATEBOARD SOUNDTRACKS',
 	_GoogleSearch,
 	_YoutubePlayer,
 	_TubeTapePlayer,
@@ -76,6 +77,10 @@ function bindEvents(){
 			$next = $("article.open").next("article");
 			console.log($next)
 			$next.find("a.ajax_g").click();
+			setTimeout(function(){
+				$next.find(".ttp").find("a.ajax_g").click();
+			}, 2000);
+			
 		}
 	});
 
@@ -96,7 +101,7 @@ function bindEvents(){
 		_YoutubePlayer.loadVideoById(videoid);
 		_YoutubePlayer.updateTitle(artist+" - "+track);
 
-		document.title = "▶ "+track+" - MixTubeSkate"
+		document.title = "▶ "+track+" - "+SITE_NAME;
 		
 	});
 

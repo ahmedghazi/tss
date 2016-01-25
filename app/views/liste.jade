@@ -9,7 +9,11 @@ each video in videos
                     div.span3
                         h3.year #{video.year.getFullYear()}
                     div.span3
-                        h3.rating #{video.rating}
+                        h3.rating #{video.rating} 
+                            if video.rating == 0
+                                    i.fa.fa-heart-o
+                                else
+                                    i.fa.fa-heart
                     div.span3
                         div.share
                             i.fa.fa-share

@@ -3,7 +3,7 @@ var ViewUtils = function(){
 		prev_st = 0;
 
 	this.init = function(){
-		_this.bindEvents();
+		//_this.bindEvents();
 	};
 
 	this.bindEvents = function(){

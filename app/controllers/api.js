@@ -6,9 +6,11 @@ var express = require('express'),
     Youtube = require('youtube-node'),
 	Video = mongoose.model('Video'),
     //AIzaSyBMcFRVdw_jipl7LMlnP-87PpOet7uNN8c
-    Track = mongoose.model('Track');
+    Track = mongoose.model('Track'),
+    _app;
 
 module.exports = function (app) {
+    _app = app;
 	app.use('/api', router);
 };
 
@@ -89,6 +91,8 @@ router.get('/insert/:id', function (req, res, next) {
 });
 
 router.get('/u/:id', function (req, res, next) {
+    //return res.redirect("/api/g/"+req.params.id);
+
     console.log("u")
     return Video
         .findById(req.params.id)
@@ -107,7 +111,7 @@ console.log(video)
                 };
 console.log(options)
             var request = http.get(options, function(ress){
-                console.log(ress)
+                //console.log(ress)
                 if(ress.statusCode != 200) {
                    throw "Error: " + ress.statusCode; 
                 };
@@ -167,6 +171,7 @@ console.log(options)
                                     }
                                 }); 
 
+
                             });
                         });// LOOP
                         //res.send(video)
@@ -174,7 +179,9 @@ console.log(options)
                         console.log("else")
                         //res.send(video);
                         return res.render('no-soundtrack', {
-                            title: 'THE SKATEBOARD OST',
+                            title: _app.get('title'),
+                            description: _app.get('description'),
+                            url: req.getUrl(),
                             video: video
                         });
                     }
@@ -199,7 +206,14 @@ router.get('/g/:id', function (req, res, next) {
                 res.redirect("/api/u/"+req.params.id);
                 //return res.send({success:false, video:video});
             }else{
-                return res.send({success:true, video:video});
+                return res.send(video);
+                /*return res.render('video', {
+                    title: _app.get('title'),
+                    description: _app.get('description'),
+                    url: req.getUrl(),
+                    bodyclass: 'video',
+                    video: video,
+                });*/
             }
     });
 });
@@ -271,6 +285,25 @@ router.get('/search/:term', function (req, res, next) {
     
 
 
+});
+
+
+
+router.get('/empty', function (req, res, next) {
+
+    return Video
+            .find( {ost: { $exists: true, $size: 0 } } )
+            //.sort({year: 'desc'})
+            //.limit(postsPerPage)
+            .exec(function(err, videos) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
+        //console.log(app.get('title'));
+        return res.send(videos);
+    });
+    
 });
 
 

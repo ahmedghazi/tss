@@ -32,7 +32,8 @@ var AjaxUtils = function(){
 			  url: ws_url
 			})
 				.done(function( data ) {
-					if(data.success == true){
+					console.log(data)
+					if(data){
 						for(var i in data.video.ost){
 							var _TubeTapePlayer = new TubeTapePlayer($article, data.video.ost[i]);
 							_TubeTapePlayer.init();
@@ -111,6 +112,8 @@ var AjaxUtils = function(){
 
 			var url = window.location.href;
 			var title = document.title;
+			var id = $(this).parents("article").attr("id"); 
+			$("#id_article").val(id);
 
 			$(".modal_header h3").text(title);
 
@@ -126,7 +129,7 @@ var AjaxUtils = function(){
 			//$(".sh .sh_title").text("Share ")
 			//$(".embed .sh_title").text("Embed");
 			var embedurl = window.location.href.replace("video", "embed");
-			$("textarea[name='embedcode']").val(embedurl);
+			$("textarea[name='embedcode']").val('Soon');
 
 			$("#modal").show();
 		});
@@ -139,13 +142,19 @@ var AjaxUtils = function(){
 			e.preventDefault();
 
 			var url = $(this).attr("href");
+			var id = $("#id_article").val();
+
+			$.ajax({
+				  method: "GET",
+				  url: '/api/share-count/'+id
+				})
+					.done(function( data ) {
+						console.log(data);
+				  	});
+
 			popupwindow(url);
 		});
-		/*
-		$("textarea[name='embedcode']").on("click", function () {
-		   $(this).select();
-		});
-		*/
+
 		$("textarea[name='embedcode']").focus(function() {
 		    var $this = $(this);
 

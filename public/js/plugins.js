@@ -128,15 +128,15 @@ function getTwUrl(url, title){
     var twUrl = 'https://twitter.com/intent/tweet';
         twUrl += '?url='+ encodeURIComponent(url);
         twUrl += '&text=nowplaying MixTubeSkate ' +encodeURIComponent(title);
-        twUrl +=  '&via=Bounews&lang=fr&hashtags=nowplaying,MixTubeSkate';
+        twUrl +=  '&via=Bounews&lang=fr&hashtags=nowplaying,#tsbst';
 
     return twUrl;
 }
 
 function getMailUrl(url, title){
     var mailUrl = 'mailto:';
-        mailUrl += '?subject=nowplaying MixTubeSkate '+ encodeURIComponent(title);
-        mailUrl += '&body=nowplaying MixTubeSkate ' +encodeURIComponent(title)+ ' : '+encodeURIComponent(url);
+        mailUrl += '?subject=nowplaying on '+SITE_NAME+' '+ encodeURIComponent(title);
+        mailUrl += '&body=nowplaying on '+SITE_NAME+' ' +encodeURIComponent(title)+ ' : '+encodeURIComponent(url);
 
     return mailUrl;
 }
