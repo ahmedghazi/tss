@@ -11,42 +11,42 @@ var AjaxUtils = function(){
 		$("html").on("click", "a.ajax_g", function(event) {
 			event.preventDefault();
 			$("body").addClass('loading');
-
+			var st = $(this).parent().position().top - $("header").height();
+console.log(st)
 			arrTubeTapePlayer = [];
 			$(".article_content .ost").html("");
 			$article = $(this).parents("article");
 			$("article").removeClass('open');
 			$article.addClass('open');
 
-			var st = $(this).parent().position().top - $("header").height();
-
 			var url = $(this).attr("href");
-			var ws_url = $(this).attr("href").replace("/video/", "/api/g/");
 			var id = $(this).parents("article").attr("id");
 			var title = $(this).children("h2").text();
-			history.pushState({ws_url}, title, url);
-			document.title = document.title+' - '+title;
 			
+			
+			var ws_url = $(this).attr("href").replace("/video/", "/video/ost/");
+			console.log(ws_url)
 			$.ajax({
 			  method: "GET",
 			  url: ws_url
 			})
-				.done(function( data ) {
-					console.log(data)
-					if(data){
-						for(var i in data.video.ost){
-							var _TubeTapePlayer = new TubeTapePlayer($article, data.video.ost[i]);
-							_TubeTapePlayer.init();
+				.done(function( html ) {
+					console.log(html)
+					if(html){
+						$article.find(".article_content").html(html);
 
-							arrTubeTapePlayer.push(_TubeTapePlayer);
-						}
+						history.pushState({ws_url}, title, url);
+						document.title = document.title+' - '+title;
 
 						$("body").removeClass('loading');
 						$("html,body").animate({
 							scrollTop: st
 						}, 1000)
 					}else{
-						var reponse = '<div class="row">... No soundtrack yet</div>';
+						var reponse = '<div class="row">';
+							reponse += '<div class="fiboA">... No soundtrack yet</div>';
+							reponse += '<div class="fiboB"><a href="'+url+'">Get It?</a></div>';
+							reponse += '</div>';
 						$article.find(".article_content").append(reponse);
 						$("body").removeClass("loading");
 					}

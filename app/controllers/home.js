@@ -99,3 +99,21 @@ router.get('/sort/rating/:id', function (req, res, next) {
 	    });
 	});
 });
+
+router.get('/legal', function (req, res, next) {
+	return res.render('ml', {
+	    title: _app.get('title'),
+	    description: _app.get('description'),
+	    url: req.getUrl(),
+	    bodyclass: 'legal'
+	});
+});
+
+router.get('/contact', function (req, res, next) {
+	return res.render('contact', {
+	    title: _app.get('title'),
+	    description: _app.get('description'),
+	    url: req.getUrl(),
+	    bodyclass: 'contact'
+	});
+});

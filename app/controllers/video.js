@@ -4,9 +4,10 @@ var express = require('express'),
 	http = require('http'),
 	cheerio = require('cheerio'),
     sniffer = require('sniffer'),
-    _app,
+    forEach = require('async-foreach').forEach,
 	Video = mongoose.model('Video'),
-	Track = mongoose.model('Track');
+	Track = mongoose.model('Track'),
+    _app;
 
 module.exports = function (app) {
     _app = app;
@@ -14,7 +15,99 @@ module.exports = function (app) {
 };
 
 router.get('/:id', function (req, res, next) {
-	return Video
+    return Video
+        .findById(req.params.id)
+        .populate('ost')
+        .exec(function(err, video) {
+            if (err) {
+                return next(err);
+            }
+            
+            if(video.ost.length == 0){
+                //res.redirect("/api/u/"+req.params.id);
+                sniffer(video.url, function (data) {
+                    console.log("cb");
+                    //console.log(data);
+                    if(data.success == true){
+                        var len = data.ost.length;
+                        var ost = [];
+                        var count = 0;
+                        forEach(data.ost, function(item, index, arr) {
+                        //for(var i in data.ost){
+
+                            var track = new Track({
+                                rider: item._rider,
+                                artist: item._artist,
+                                track: item._track,
+                                videoId: item._videoId
+                            });
+
+                            console.log(item)
+
+                            track.save(function (err) {
+                                if (!err) {
+                                    console.log(count,len)
+                                    ost.push(track._id);
+                                    if(count == len-1){
+                                        console.log(ost)
+                                        
+                                        video.ost = ost;
+                                        video.save(function (_err) {
+                                            if (!_err) {
+                                             
+                                                return Video
+                                                    .findById(req.params.id)
+                                                    .populate('ost')
+                                                    .exec(function(err, video) {
+                                                        if (err) {
+                                                            return next(err);
+                                                        }
+
+                                                        return res.render('video', {
+                                                            title: _app.get('title'),
+                                                            description: _app.get('description'),
+                                                            url: req.getUrl(),
+                                                            bodyclass: 'video',
+                                                            video: video,
+                                                        });
+                                                });
+                                            }else{
+                                                return console.log(_err);
+                                            }
+                                        });
+                                    }
+                                    count++;
+                                }
+                            });
+                        });
+                    }else{
+                        return res.render('video', {
+                            title: _app.get('title'),
+                            description: _app.get('description'),
+                            url: req.getUrl(),
+                            bodyclass: 'video',
+                            video: video,
+                        }); 
+                    }
+                });
+
+            }else{
+                return res.render('video', {
+                    title: _app.get('title'),
+                    description: _app.get('description'),
+                    url: req.getUrl(),
+                    bodyclass: 'video',
+                    video: video,
+                }); 
+            }
+             
+            
+    });
+});
+
+
+router.get('/ost/:id', function (req, res, next) {
+    return Video
         .findById(req.params.id)
         .populate('ost')
         .exec(function(err, video) {
@@ -23,20 +116,83 @@ router.get('/:id', function (req, res, next) {
             }
             console.log(video.ost.length)
             if(video.ost.length == 0){
-                res.redirect("/api/u/"+req.params.id);
+                res.send(false);
             }else{
-                //console.log(video)
-                //return res.send(video)
-            	return res.render('video', {
-            	    title: _app.get('title'),
+                return res.render('track', {
+                    title: _app.get('title'),
                     description: _app.get('description'),
                     url: req.getUrl(),
                     bodyclass: 'video',
-            	    video: video,
-            	}); 
+                    video: video,
+                }); 
+            }  
+    });
+});
+
+router.get('/sniff-ost/:id', function (req, res, next) {
+    return Video
+        .findById(req.params.id)
+        .populate('ost')
+        .exec(function(err, video) {
+            if (err) {
+                return next(err);
             }
-	         
             
+            sniffer(video.url, function (data) {
+                console.log("cb");
+                //console.log(data);
+                if(data.success == true){
+                    var len = data.ost.length;
+                    var ost = [];
+                    var count = 0;
+                    forEach(data.ost, function(item, index, arr) {
+
+                        var track = new Track({
+                            rider: item._rider,
+                            artist: item._artist,
+                            track: item._track,
+                            videoId: item._videoId
+                        });
+
+                        console.log(item)
+
+                        track.save(function (err) {
+                            if (!err) {
+                                console.log(count,len)
+                                ost.push(track._id);
+                                if(count == len-1){
+                                    console.log(ost)
+                                    
+                                    video.ost = ost;
+                                    video.save(function (_err) {
+                                        if (!_err) {
+                                         
+                                            return res.render('track', {
+                                                title: _app.get('title'),
+                                                description: _app.get('description'),
+                                                url: req.getUrl(),
+                                                bodyclass: 'video',
+                                                video: video,
+                                            }); 
+                                        }else{
+                                            return console.log(_err);
+                                        }
+                                    });
+                                }
+                                count++;
+                            }
+                        });
+                    });
+                }else{
+                    return res.render('video', {
+                        title: _app.get('title'),
+                        description: _app.get('description'),
+                        url: req.getUrl(),
+                        bodyclass: 'video',
+                        video: video,
+                    }); 
+                }
+            });  
     });
 });
 
@@ -55,85 +211,6 @@ router.get('/share-count/:id', function (req, res, next) {
                 else
                     res.send(video.rating)
             });
-            
-    });
-});
-
-
-
-//reload inject api/id
-//return
-
-
-router.get('/2/:id', function (req, res, next) {
-    return Video
-        .findById(req.params.id)
-        .populate('ost')
-        .exec(function(err, video) {
-            if (err) {
-                return next(err);
-            }
-            
-            if(video.ost.length == 0){
-                //res.redirect("/api/u/"+req.params.id);
-                sniffer(video.url, function (data) {
-                    console.log("cb");
-                    console.log(data);
-                    if(data.success == true){
-                        var len = data.ost.length;
-                        var ost = [];
-                        var count = 0;
-                        for(var i in data.ost){
-
-                            var track = new Track({
-                                rider: data.ost[i]._rider,
-                                artist: data.ost[i]._artist,
-                                track: data.ost[i]._track
-                            });
-
-                            track.save(function (err) {
-                                if (!err) {
-                                    console.log(count,len)
-                                    ost.push(track._id);
-                                    if(count == len-1){
-                                        console.log(ost)
-                                        
-                                        video.ost = ost;
-                                        video.save(function (_err) {
-                                            if (!_err) {
-                                                //res.send(video)
-                                                return res.render('video', {
-                                                    title: _app.get('title'),
-                                                    description: _app.get('description'),
-                                                    url: req.getUrl(),
-                                                    bodyclass: 'video',
-                                                    video: video,
-                                                }); 
-                                            }else{
-                                                return console.log(_err);
-                                            }
-                                        });
-                                        //res.send(video)
-                                    }
-                                    count++;
-                                }
-                            });
-                        }
-                    }
-                });
-
-            }else{
-                //console.log(video)
-                //return res.send(video)
-                return res.render('video', {
-                    title: _app.get('title'),
-                    description: _app.get('description'),
-                    url: req.getUrl(),
-                    bodyclass: 'video',
-                    video: video,
-                }); 
-            }
-             
             
     });
 });

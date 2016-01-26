@@ -283,7 +283,16 @@ article.open .article_footer{display: block;}
 .fa-play,
 .fa-pause{line-height: 13px;}
 
-
+.controls .backward,
+.controls .play,
+.controls .pause,
+.controls .forward,
+.controls .mute{cursor: pointer;}
+.controls .backward:hover,
+.controls .play:hover,
+.controls .pause:hover,
+.controls .forward:hover,
+.controls .mute:hover{color: black;}
 /*------------------------------------*\
     MODAL
 \*------------------------------------*/

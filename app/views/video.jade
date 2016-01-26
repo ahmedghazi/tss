@@ -2,11 +2,12 @@ extends layout
 block title
     title= title+' - '+video.title
 
-block fbog
-    meta(og:title='THE SKATEBOARD SOUNDTRACKS - #{video.title}')
-    meta(og:site_name='THE SKATEBOARD SOUNDTRACKS')
+block metaog
+    meta(og:title='#{title} - #{video.title}')
+    meta(og:site_name='#{title}')
     meta(og:description='#{description}')
     meta(og:url='#{url}')
+    meta(og:image='#{url}/img/tsbst-logo.jpg')
     meta(fb:app_id='')
     meta(og:type='article')
 
@@ -38,7 +39,7 @@ prepend content
                         include track
                     else
                         include no-soundtrack
-
+             
                 div.article_footer.row
                     div.align_right
                         a(href="http://www.skatevideosite.com#{video.url}" target="_blank") Source 
