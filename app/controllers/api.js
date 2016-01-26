@@ -20,7 +20,7 @@ module.exports = function (app) {
 
 router.get('/insert/:id', function (req, res, next) {
 	
-	res.send("api");
+	//res.send("api");
 
 	var response_text = "";
 	var options = {
@@ -30,18 +30,19 @@ router.get('/insert/:id', function (req, res, next) {
 	      , method: 'GET'
 	    };
 
-    var request = http.get(options, function(res){
-        if(res.statusCode != 200) {
+    var request = http.get(options, function(ress){
+        if(ress.statusCode != 200) {
            throw "Error: " + res.statusCode; 
         };
      
-        res.setEncoding("utf8");
-        res.on("data", function (chunk) {
+        ress.setEncoding("utf8");
+        ress.on("data", function (chunk) {
             response_text += chunk;
         });
-        res.on("end", function() {
+        ress.on("end", function() {
         	//console.log(response_text)
             $ = cheerio.load(response_text);
+            var len = $("#skatevideos").find("tr").length
             $("#skatevideos").find("tr").each(function(idx, tr) {
                 if(idx != 0){
                     var title,url,rating,year;
@@ -63,7 +64,7 @@ router.get('/insert/:id', function (req, res, next) {
                     	}
                     	
                     });
-    console.log(title, year)
+
                     var video = new Video({
                         title: title,
                         url: url,
@@ -73,8 +74,15 @@ router.get('/insert/:id', function (req, res, next) {
 
                     video.save(function (err) {
                         if (!err) {
-                            //res.send(video);
-                            console.log(video);
+                            if(idx == len-1){
+                            //if(parseFloat(req.params.id) < 17){
+                                var next = parseFloat(req.params.id) + 1;
+                                console.log(next)
+                                //res.redirect('/api/insert/'+next);
+                                //res.redirect("/api/u/"+req.params.id);
+                            
+                                res.send({id:req.params.id});
+                            }
                         } else {
                             return console.log(err);
                         }
@@ -306,4 +314,14 @@ router.get('/empty', function (req, res, next) {
     
 });
 
-
+router.get('/drop', function (req, res, next) {
+    /*Video.remove({}, function(err) { 
+       console.log('Videos removed') 
+       Track.remove({}, function(err) { 
+          console.log('Tracks removed') 
+          res.redirect("/");
+       });
+    });*/
+    req.resetDb();
+    res.redirect("/");
+});

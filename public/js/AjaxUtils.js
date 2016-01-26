@@ -11,7 +11,7 @@ var AjaxUtils = function(){
 		$("html").on("click", "a.ajax_g", function(event) {
 			event.preventDefault();
 			$("body").addClass('loading');
-			var st = $(this).parent().position().top - $("header").height();
+			var st = $(this).parents("article").position().top - 68;
 console.log(st)
 			arrTubeTapePlayer = [];
 			$(".article_content .ost").html("");
@@ -31,7 +31,7 @@ console.log(st)
 			  url: ws_url
 			})
 				.done(function( html ) {
-					console.log(html)
+					//console.log(html)
 					if(html){
 						$article.find(".article_content").html(html);
 
@@ -39,9 +39,9 @@ console.log(st)
 						document.title = document.title+' - '+title;
 
 						$("body").removeClass('loading');
-						$("html,body").animate({
+						/*$("html,body").animate({
 							scrollTop: st
-						}, 1000)
+						}, 1000)*/
 					}else{
 						var reponse = '<div class="row">';
 							reponse += '<div class="fiboA">... No soundtrack yet</div>';

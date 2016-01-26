@@ -27,6 +27,13 @@ app.use(function(req, res, next) {
 	return next();
 });
 
+app.use(function(req, res, next){
+  req.resetDb = function(){
+    mongoose.connection.db.dropDatabase();
+  }
+  return next();
+})
+
 require('./config/express')(app, config);
 
 

@@ -127,7 +127,7 @@ function getFbUrl(url, title){
 function getTwUrl(url, title){
     var twUrl = 'https://twitter.com/intent/tweet';
         twUrl += '?url='+ encodeURIComponent(url);
-        twUrl += '&text=nowplaying MixTubeSkate ' +encodeURIComponent(title);
+        twUrl += '&text=' +encodeURIComponent(title);
         twUrl +=  '&via=Bounews&lang=fr&hashtags=nowplaying,#tsbst';
 
     return twUrl;
@@ -135,7 +135,7 @@ function getTwUrl(url, title){
 
 function getMailUrl(url, title){
     var mailUrl = 'mailto:';
-        mailUrl += '?subject=nowplaying on '+SITE_NAME+' '+ encodeURIComponent(title);
+        mailUrl += '?subject=nowplaying on '+ encodeURIComponent(title);
         mailUrl += '&body=nowplaying on '+SITE_NAME+' ' +encodeURIComponent(title)+ ' : '+encodeURIComponent(url);
 
     return mailUrl;
