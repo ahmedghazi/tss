@@ -21,7 +21,7 @@ module.exports = function (app) {
 router.get('/insert/:id', function (req, res, next) {
 	
 	//res.send("api");
-
+console.log("api",req.params.id)
 	var response_text = "";
 	var options = {
 	        host: 'www.skatevideosite.com'
@@ -40,7 +40,7 @@ router.get('/insert/:id', function (req, res, next) {
             response_text += chunk;
         });
         ress.on("end", function() {
-        	//console.log(response_text)
+        	console.log(response_text)
             $ = cheerio.load(response_text);
             var len = $("#skatevideos").find("tr").length
             $("#skatevideos").find("tr").each(function(idx, tr) {
