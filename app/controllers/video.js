@@ -27,22 +27,21 @@ router.get('/:id', function (req, res, next) {
                 //res.redirect("/api/u/"+req.params.id);
                 sniffer(video.url, function (data) {
                     console.log("cb");
-                    //console.log(data);
+                    console.log(data);
                     if(data.success == true){
+                        var videoIframe = data.videoIframe;
                         var len = data.ost.length;
                         var ost = [];
                         var count = 0;
                         forEach(data.ost, function(item, index, arr) {
                         //for(var i in data.ost){
-console.log(item)
+//console.log(item)
                             var track = new Track({
                                 rider: item[0],
                                 artist: item[1],
                                 track: item[2],
                                 videoId: item[3]
                             });
-
-                            var videoIframe = item.video;
 
                             //console.log(track)
 
@@ -66,7 +65,7 @@ console.log(item)
                                                         if (err) {
                                                             return next(err);
                                                         }
-
+                                                        console.log(video)
                                                         return res.render('video', {
                                                             title: _app.get('title'),
                                                             description: _app.get('description'),
@@ -97,7 +96,7 @@ console.log(item)
                 });
 
             }else{
-                console.log(video.videoIframe)
+                console.log(video)
                 return res.render('video', {
                     title: _app.get('title'),
                     description: _app.get('description'),

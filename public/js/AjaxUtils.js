@@ -45,7 +45,7 @@ console.log(st)
 					}else{
 						var reponse = '<div class="row">';
 							reponse += '<div class="fiboA">... No soundtrack yet</div>';
-							reponse += '<div class="fiboB"><a href="'+url+'">Get It?</a></div>';
+							reponse += '<div class="fiboB"><a href="'+url+'">Load It?</a></div>';
 							reponse += '</div>';
 						$article.find(".article_content").append(reponse);
 						$("body").removeClass("loading");
