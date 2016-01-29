@@ -13,6 +13,7 @@ var VideoSchema = new Schema({
       index: true,
       type: String
   },
+  videoIframe: String,
 	url: String,
 	year: Date,
 	rating: Number,

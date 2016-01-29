@@ -84,7 +84,7 @@ function bindEvents(){
 		}
 	});
 
-	$("body.video").find(".ttp").on("click", function(e){
+	$("html").on("click", ".ttp", function(e){
 
 		$(".ttp")
 			.removeClass('currentItemPlaying')

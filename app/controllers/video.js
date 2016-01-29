@@ -34,24 +34,28 @@ router.get('/:id', function (req, res, next) {
                         var count = 0;
                         forEach(data.ost, function(item, index, arr) {
                         //for(var i in data.ost){
-
+console.log(item)
                             var track = new Track({
-                                rider: item._rider,
-                                artist: item._artist,
-                                track: item._track,
-                                videoId: item._videoId
+                                rider: item[0],
+                                artist: item[1],
+                                track: item[2],
+                                videoId: item[3]
                             });
 
-                            console.log(item)
+                            var videoIframe = item.videoIframe;
+
+                            //console.log(track)
 
                             track.save(function (err) {
                                 if (!err) {
                                     console.log(count,len)
                                     ost.push(track._id);
                                     if(count == len-1){
-                                        console.log(ost)
+                                        //console.log(ost)
                                         
                                         video.ost = ost;
+                                        if(videoIframe != undefined)video.videoIframe = videoIframe;
+                                        console.log("videoIframe ",videoIframe);
                                         video.save(function (_err) {
                                             if (!_err) {
                                              
@@ -81,6 +85,7 @@ router.get('/:id', function (req, res, next) {
                             });
                         });
                     }else{
+
                         return res.render('video', {
                             title: _app.get('title'),
                             description: _app.get('description'),
@@ -92,6 +97,7 @@ router.get('/:id', function (req, res, next) {
                 });
 
             }else{
+                console.log(video.videoIframe)
                 return res.render('video', {
                     title: _app.get('title'),
                     description: _app.get('description'),
