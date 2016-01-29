@@ -42,7 +42,7 @@ console.log(item)
                                 videoId: item[3]
                             });
 
-                            var videoIframe = item.videoIframe;
+                            var videoIframe = item.video;
 
                             //console.log(track)
 
