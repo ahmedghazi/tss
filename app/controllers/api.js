@@ -78,10 +78,13 @@ console.log("api",req.params.id)
                             //if(parseFloat(req.params.id) < 17){
                                 var next = parseFloat(req.params.id) + 1;
                                 console.log(next)
-                                //res.redirect('/api/insert/'+next);
+                                if(next < 18)  
+                                    res.redirect('/api/insert/'+next);
+                                else
+                                    res.redirect("/");
                                 //res.redirect("/api/u/"+req.params.id);
                             
-                                res.send({id:req.params.id});
+                                //res.send({id:req.params.id});
                             }
                         } else {
                             return console.log(err);
