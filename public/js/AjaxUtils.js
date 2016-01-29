@@ -57,6 +57,7 @@ console.log(st)
 
 		$("html").on('click', '.more', function(event) {
 			event.preventDefault();
+console.log(window.location)
 
 			var st = $(this).parent().offset().top;
 			$("body").addClass("loading");
@@ -67,7 +68,7 @@ console.log(st)
 			
 			$.ajax({
 				type: "GET",
-				url: '/page/'+page
+				url: window.location.pathname+'/'+page
 			})
 				.done(function( html ) {
 					console.log(html);

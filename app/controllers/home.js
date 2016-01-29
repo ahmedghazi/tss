@@ -76,7 +76,28 @@ router.get('/sort/year/:id', function (req, res, next) {
 	        videos: videos
 	    });
 	});
-	
+});
+router.get('/sort/year/:id/:page', function (req, res, next) {
+	var skip = parseInt(req.params.page * postsPerPage);
+	return Video
+			.find()
+			.sort({year: req.params.id})
+			.limit(postsPerPage)
+			.skip(skip)
+			.exec(function(err, videos) {
+	    if (err) {
+	        console.log(err);
+	        return next(err);
+	    }
+	    //console.log(app.get('title'));
+	    return res.render('liste', {
+	        title: _app.get('title'),
+	        description: _app.get('description'),
+	        url: req.getUrl(),
+	        bodyclass: 'home',
+	        videos: videos
+	    });
+	});
 });
 
 router.get('/sort/rating/:id', function (req, res, next) {
@@ -99,6 +120,30 @@ router.get('/sort/rating/:id', function (req, res, next) {
 	    });
 	});
 });
+
+router.get('/sort/rating/:id/:page', function (req, res, next) {
+	var skip = parseInt(req.params.page * postsPerPage);
+	return Video
+			.find()
+			.sort({year: req.params.id})
+			.limit(postsPerPage)
+			.skip(skip)
+			.exec(function(err, videos) {
+	    if (err) {
+	        console.log(err);
+	        return next(err);
+	    }
+	    //console.log(app.get('title'));
+	    return res.render('liste', {
+	        title: _app.get('title'),
+	        description: _app.get('description'),
+	        url: req.getUrl(),
+	        bodyclass: 'home',
+	        videos: videos
+	    });
+	});
+});
+
 
 router.get('/legal', function (req, res, next) {
 	return res.render('ml', {
