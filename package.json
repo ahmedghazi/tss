@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "async": "^1.5.2",
-    "async-foreach": "file:node_modules/async-foreach",
+    "async-foreach": "^0.1.3",
     "body-parser": "^1.13.3",
     "cheerio": "~0.19.0",
     "compression": "^1.5.2",
