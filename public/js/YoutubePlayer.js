@@ -79,7 +79,7 @@ var YoutubePlayer = function(){
 	
 	this.initPlayer = function(holder){
 		context = holder;
-
+console.log(holder)
 		player = new YT.Player(holder, {
           	height: $("#"+holder).height(),
           	width: $("#"+holder).width(),

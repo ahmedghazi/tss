@@ -40,7 +40,7 @@ console.log("api",req.params.id)
             response_text += chunk;
         });
         ress.on("end", function() {
-        	console.log(response_text)
+        	//console.log(response_text)
             $ = cheerio.load(response_text);
             var len = $("#skatevideos").find("tr").length
             $("#skatevideos").find("tr").each(function(idx, tr) {
@@ -77,7 +77,7 @@ console.log("api",req.params.id)
                             if(idx == len-1){
                             //if(parseFloat(req.params.id) < 17){
                                 var next = parseFloat(req.params.id) + 1;
-                                console.log(next)
+                                console.log("next",next)
                                 if(next < 18)  
                                     res.redirect('/api/insert/'+next);
                                 else
