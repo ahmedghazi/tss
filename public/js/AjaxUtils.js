@@ -118,7 +118,7 @@ if(path.indexOf("video") != -1)path = '/page';
 		$("html").on("click", ".share", function(){
 
 			var url = window.location.href;
-			var title = "▶ "+document.title;
+			var title = document.title;
 			console.log(title,url)
 			var id = $(this).parents("article").attr("id"); 
 			$("#id_article").val(id);
