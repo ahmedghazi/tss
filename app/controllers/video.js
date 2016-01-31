@@ -27,7 +27,7 @@ router.get('/:id', function (req, res, next) {
                 //res.redirect("/api/u/"+req.params.id);
                 sniffer(video.url, function (data) {
                     console.log("cb");
-                    console.log(data);
+                    console.log(data.success);
                     if(data.success == true){
                         var videoIframe = data.videoIframe;
                         var len = data.ost.length;

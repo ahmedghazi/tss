@@ -126,6 +126,15 @@ function bindEvents(){
 		$(this).hide();
 		$(this).siblings('.play').show();
 	});
+
+	$("html").on("click", "a[rel='iframe']", function(e){
+		e.preventDefault();
+		var url = $(this).attr("href");
+		var iframe = '<iframe width="100%" height="100%" src="'+url+'" frameborder="0" allowfullscreen></iframe>';
+		$("#iframe").find(".modal_content").html(iframe);
+		$("#iframe").show();
+	});
+
 }
 
 function format(){

@@ -282,6 +282,7 @@ router.get('/search/:term', function (req, res, next) {
     
     return Video
         .find( { title : { $regex: req.params.term, $options: 'i' }})
+        .sort({year: 'desc'})
         .populate('ost')
         .exec(function(err, videos) {
             if (err) {

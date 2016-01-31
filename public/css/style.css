@@ -91,7 +91,10 @@ body.loading #loader{display: block;}
   position: fixed; top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255,255,255,0.8); 
+  background: rgba(255,255,255,0.9); 
+  background-image:url(/img/tsbst-logo-400.gif);
+  background-position: center;
+  background-repeat: no-repeat;
   cursor: wait;
   display: none;
 }
@@ -177,11 +180,14 @@ article.open .article_content{
   display: block;
 }
 
-article.open .article_header{
+article.open .article_header,
+article.open .article_footer{
   background-color: blue;
 }
 article.open .article_header,
-article.open .article_header a{color: white;}
+article.open .article_header a,
+article.open .article_footer,
+article.open .article_footer a{color: white;}
 
 article.open .fiboA{padding-left: 10px;}
 
@@ -196,7 +202,7 @@ article.open .fiboA{padding-left: 10px;}
   white-space: nowrap;
 }
 
-.list_footer{padding: 20px 0;}
+.list_footer{padding: 42px 0;}
 
 
 .share{text-align: right;padding-right: 10px; cursor: pointer; display: none;}
@@ -206,11 +212,22 @@ article.open .share{display: block;}
 
 .article_footer{display: none;}
 article.open .article_footer{display: block;}
+
+a.more{
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+a.more:hover{
+  color: white;
+  background-color: blue;
+}
 /*------------------------------------*\
     PLAYLIST
 \*------------------------------------*/
 .article_content > div:nth-child(odd){background-color: #F8F8F8;}
-.ost_header{background-color: #5454FC!important; color: white;}
+.ost_header,
+.article_footer{background-color: #5454FC!important; color: white;}
 .ttp:nth-child(odd){}
 
 
@@ -268,7 +285,13 @@ article.open .article_footer{display: block;}
   cursor: pointer;
 }
 
-.timeline{position: relative; height: 5px; background-color: white}
+.timeline{
+  position: relative; 
+  height: 5px; 
+  background-color: white;
+}
+.timeline:hover{height: 10px;}
+.timeline_bg,
 .buffer,
 .scrubber,
 .track_seek{
@@ -276,10 +299,12 @@ article.open .article_footer{display: block;}
     width: 0;
     height: 100%;
 }
-.track_seek{width: 100%;}
+.track_seek{width: 100%;cursor: pointer;}
+.timeline_bg,
 .buffer,
-.scrubber{background-color: blue;}
-.buffer{opacity: 0.6}
+.scrubber{background-color: blue; width: 100%;}
+.timeline_bg{opacity: 0.3; }
+.buffer{opacity: 0.4}
 .scrubber{opacity: 1}
 
 .fa-play,
@@ -301,7 +326,7 @@ article.open .article_footer{display: block;}
 .modal{
   position: fixed; top: 58px;left: 0;
   padding: 20px;
-  width: 100%; height: 100%;
+  width: 100%; height: calc(100% - 58px);
   background-color: white;
   color: blue;
   display: none;
@@ -327,6 +352,9 @@ article.open .article_footer{display: block;}
 }
 .modal .modal_close{opacity: 1; pointer-events:auto;}
 .modal .modal_close:hover{color: black;}
+
+#iframe .modal_inner,
+#iframe .modal_content{height: 100%; }
 /*------------------------------------*\
     SEARCH
 \*------------------------------------*/

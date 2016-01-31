@@ -63,6 +63,7 @@ var AjaxUtils = function(){
 console.log(window.location)
 var path = window.location.pathname
 if(path == '/')path = '/page';
+if(path.indexOf("video") != -1)path = '/page';
 
 			var st = $(this).parent().offset().top;
 			$("body").addClass("loading");
@@ -76,7 +77,7 @@ if(path == '/')path = '/page';
 				url: path+'/'+page
 			})
 				.done(function( html ) {
-					console.log(html);
+					//console.log(html);
 					$(".liste_content").append(html);
 
 					$("body").removeClass("loading");
@@ -141,7 +142,7 @@ if(path == '/')path = '/page';
 		});
 
 		$(".modal_close").on("click", function(){
-			$("#modal").hide();
+			$(".modal").hide();
 		});
 
 		$("html").on("click", ".sh a", function(e){
