@@ -3,9 +3,11 @@ var YoutubePlayer = function(){
 		context,
 		player,
 		enterFrame,
+		PIETIMER,
 		el,
 		IDX,
-		duration;
+		duration,
+		PROGRESSION;
 	
 	this.init = function(){
 		//el = $("#player");
@@ -109,13 +111,14 @@ var YoutubePlayer = function(){
 		switch(event.data){
 			case 0:
 				clearInterval(enterFrame);
+				clearInterval(PIETIMER);
 				Piecon.reset()
 				$("html").trigger("NEXT",[IDX]);
 			break;
 			case 1:
 				duration = player.getDuration();
-				enterFrame = setInterval(_this.update,250);			
-				
+				enterFrame = setInterval(_this.update, 250);			
+				PIETIMER = setInterval(_this.updatePie, 1000);		
 				$("body").removeClass("loading");
 
 				$(el).addClass("currentItemPlaying").removeClass("state_pause");
@@ -123,12 +126,17 @@ var YoutubePlayer = function(){
 			break;
 			case 2:
 				clearInterval(enterFrame);
+				clearInterval(PIETIMER);
 				$(el).removeClass("currentItemPlaying").addClass("state_pause");
 				$("#player").addClass('state_pause');
 			break;
 		}
 	};
 	
+	this.updatePie = function(){
+		Piecon.setProgress(PROGRESSION*100);
+	};
+
 	this.update = function(){
 		
 		var seconds = secondsToHms( player.getCurrentTime() );
@@ -146,7 +154,8 @@ var YoutubePlayer = function(){
 		var w = pw * percent;
 		$("#player").find(".scrubber").css("width",w)
 
-		Piecon.setProgress(percent*100);
+		PROGRESSION = percent;
+	//	Piecon.setProgress(percent*100);
 	}
 	
 	this.loadVideoByUrl = function(url){
@@ -155,6 +164,7 @@ var YoutubePlayer = function(){
 	};
 
 	this.loadVideoById = function(_id){
+		//player.stopVideo();
 		$("#player").removeClass('offside_bottom')
 		player.loadVideoById(_id);
 	};
