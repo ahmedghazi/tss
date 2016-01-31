@@ -92,7 +92,7 @@ body.loading #loader{display: block;}
   width: 100%;
   height: 100%;
   background: rgba(255,255,255,0.9); 
-  background-image:url(/img/tsbst-logo-400.gif);
+  background-image:url(/img/tsbst-logo-200.gif);
   background-position: center;
   background-repeat: no-repeat;
   cursor: wait;
@@ -344,7 +344,7 @@ a.more:hover{
   border-bottom: 3px solid; margin-bottom: 20px;
 }
 
-.modal_header{}
+.modal_header{display: none;}
 .modal_content li{float: left; margin-right: 20px;}
 
 .modal .row{

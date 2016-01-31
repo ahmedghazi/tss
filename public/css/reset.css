@@ -433,7 +433,7 @@ h1,h2,h3,h4{
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 0px;
     border-radius: 0px;
-    background: black; 
+    background: blue; 
     
 }
 ::-webkit-scrollbar-thumb:window-inactive {

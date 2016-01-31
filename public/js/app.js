@@ -103,7 +103,7 @@ function bindEvents(){
 		_YoutubePlayer.loadVideoById(videoid);
 		_YoutubePlayer.updateTitle(artist+" - "+track);
 
-		document.title = "▶ "+track+" - "+SITE_NAME;
+		//document.title = "▶ "+track+" - "+SITE_NAME;
 		
 	});
 
