@@ -58,6 +58,8 @@ console.log(st)
 		$("html").on('click', '.more', function(event) {
 			event.preventDefault();
 console.log(window.location)
+var path = window.location.pathname
+if(path == '/')path = '/page';
 
 			var st = $(this).parent().offset().top;
 			$("body").addClass("loading");
@@ -68,7 +70,7 @@ console.log(window.location)
 			
 			$.ajax({
 				type: "GET",
-				url: window.location.pathname+'/'+page
+				url: path+'/'+page
 			})
 				.done(function( html ) {
 					console.log(html);
