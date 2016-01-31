@@ -12,12 +12,12 @@ html(lang='en')
         link(rel='stylesheet', href='/css/style.css')
 
     block metaog
-        meta(og:title='#{title}')
-        meta(og:site_name='#{title}')
-        meta(og:description='#{description}')
-        meta(og:url='#{url}')
+        meta(property='og:title' content='#{title}')
+        meta(property='og:site_name' content='#{title}')
+        meta(property='og:description' content='#{description}')
+        meta(property='og:url' content='#{url}')
         meta(property='og:image' content='http://theskateboardsoundtracks.com/img/tsbst-logo-fb.jpg')
-        meta(og:type='article')
+        meta(property='og:type' content='article')
     
     block js
         if ENV_DEVELOPMENT

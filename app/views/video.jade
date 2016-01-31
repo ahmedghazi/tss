@@ -3,12 +3,12 @@ block title
     title= '▶ '+title+' - '+video.title
 
 block metaog
-    meta(og:title='▶ #{title} - #{video.title}')
-    meta(og:site_name='#{title}')
-    meta(og:description='#{description}')
-    meta(og:url='#{url}')
+    meta(property='og:title' content='▶ #{title} - #{video.title}')
+    meta(property='og:site_name' content='#{title}')
+    meta(property='og:description' content='#{description}')
+    meta(property='og:url' content='#{url}')
     meta(property='og:image' content='http://theskateboardsoundtracks.com/img/tsbst-logo-fb.jpg')
-    meta(og:type='article')
+    meta(property='og:type' content='article')
 
 prepend content
     
