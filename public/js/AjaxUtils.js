@@ -145,6 +145,7 @@ if(path.indexOf("video") != -1)path = '/page';
 
 		$(".modal_close").on("click", function(){
 			$(".modal").hide();
+			$("#iframe").find(".modal_content").html("");
 		});
 
 		$("html").on("click", ".sh a", function(e){
