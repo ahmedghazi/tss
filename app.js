@@ -17,9 +17,11 @@ var models = glob.sync(config.root + '/app/models/*.js');
 models.forEach(function (model) {
   require(model);
 });
+
 var app = express();
 app.set('title', 'THE SKATEBOARD SOUNDTRACKS');
 app.set('description', 'A PLACE FOR MUSIC ON WHEELS');
+
 app.use(function(req, res, next) {
 	req.getUrl = function() {
 	  return req.protocol + "://" + req.get('host') + req.originalUrl;

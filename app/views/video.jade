@@ -41,8 +41,14 @@ prepend content
                         include no-soundtrack
              
                 div.article_footer.row
-                    div.align_right
-                        if video.videoIframe != undefined
-                            a(href="#{video.videoIframe}" target="_blank") Video, 
-                        a(href="http://www.skatevideosite.com#{video.url}" target="_blank") Source 
+                    div.fiboA
+                    div.fiboB
+                        div.span3 
+                            
+                        div.span3
+                            if video.videoIframe != undefined
+                                a(href="#{video.videoIframe}" target="_blank") Video 
+                        div.span3
+                            a(href="http://www.skatevideosite.com#{video.url}" target="_blank") Source 
+                        
                 div.sepBlue

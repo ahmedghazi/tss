@@ -6,13 +6,13 @@ var AjaxUtils = function(){
 	};
 
 	this.bindEvents = function(){
-		console.log("bindEvents")
+		//console.log("bindEvents")
 		
 		$("html").on("click", "a.ajax_g", function(event) {
 			event.preventDefault();
 			$("body").addClass('loading');
 			var st = $(this).parents("article").position().top - 68;
-console.log(st)
+//console.log(st)
 			arrTubeTapePlayer = [];
 			$(".article_content .ost").html("");
 			$article = $(this).parents("article");
@@ -23,9 +23,12 @@ console.log(st)
 			var id = $(this).parents("article").attr("id");
 			var title = $(this).children("h2").text();
 			
-			
 			var ws_url = $(this).attr("href").replace("/video/", "/video/ost/");
 			console.log(ws_url)
+
+			history.pushState({ws_url}, title, url);
+			document.title = document.title+' - '+title;
+
 			$.ajax({
 			  method: "GET",
 			  url: ws_url
@@ -35,23 +38,23 @@ console.log(st)
 					if(html){
 						$article.find(".article_content").html(html);
 
-						history.pushState({ws_url}, title, url);
-						document.title = document.title+' - '+title;
-
 						$("body").removeClass('loading');
-						/*$("html,body").animate({
+
+						$("html,body").animate({
 							scrollTop: st
-						}, 1000)*/
+						}, 1000)
+
 					}else{
 						var reponse = '<div class="row">';
 							reponse += '<div class="fiboA">... No soundtrack yet</div>';
-							reponse += '<div class="fiboB"><a href="'+url+'">Load It?</a></div>';
+							reponse += '<div class="fiboB"><a href="'+url+'" rel="ajax">Load It?</a></div>';
 							reponse += '</div>';
 						$article.find(".article_content").append(reponse);
 						$("body").removeClass("loading");
 					}
 					
 			  	});
+			
 		});
 
 
@@ -111,7 +114,7 @@ if(path == '/')path = '/page';
 			
 		});
 
-		$(".share").on("click", function(){
+		$("html").on("click", ".share", function(){
 
 			var url = window.location.href;
 			var title = document.title;
@@ -141,7 +144,7 @@ if(path == '/')path = '/page';
 			$("#modal").hide();
 		});
 
-		$(".sh a").on("click", function(e){
+		$("html").on("click", ".sh a", function(e){
 			e.preventDefault();
 
 			var url = $(this).attr("href");

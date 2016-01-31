@@ -209,8 +209,10 @@ article.open .article_footer{display: block;}
 /*------------------------------------*\
     PLAYLIST
 \*------------------------------------*/
-.ost_header{background-color: #5454FC; color: white;}
-.ttp:nth-child(odd){background-color: #F8F8F8;}
+.article_content > div:nth-child(odd){background-color: #F8F8F8;}
+.ost_header{background-color: #5454FC!important; color: white;}
+.ttp:nth-child(odd){}
+
 
 .player_ost .pause{display: none;}
 
@@ -236,7 +238,7 @@ article.open .article_footer{display: block;}
 
 .ttp.currentItemPlaying,
 .ttp:hover{
-  background-color: blue;
+  background-color: blue !important;
   color: white;
 }
 

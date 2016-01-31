@@ -1,4 +1,4 @@
-var ww,wh,fu,vu,au,prev_st,
+var ww,wh,fu,nc,vu,au,prev_st,
 	SITE_NAME = 'THE SKATEBOARD SOUNDTRACKS',
 	_GoogleSearch,
 	_YoutubePlayer,
@@ -33,14 +33,16 @@ function initObjects(){
 	_YoutubePlayer = new YoutubePlayer();
 	_YoutubePlayer.init();
 
+	nc = new NavigateController();
+	nc.init();
 
 	au = new AjaxUtils();
 	au.init();
 
-	vu = new ViewUtils();
-	vu.init();
+	//vu = new ViewUtils();
+	//vu.init();
 
-	console.log("initObjects")
+//	console.log("initObjects");
 }
 
 function bindEvents(){

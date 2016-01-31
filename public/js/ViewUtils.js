@@ -36,3 +36,4 @@ var ViewUtils = function(){
         return c;
     };
 }
+

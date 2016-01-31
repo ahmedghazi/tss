@@ -33,7 +33,14 @@ each video in videos
                         div.span3 Track
                 div.ost
 
-            div.article_footer
-                div.align_right.row
-                    a(href="http://www.skatevideosite.com#{video.url}" target="_blank") Source 
+            div.article_footer.row
+                div.fiboA
+                div.fiboB
+                    div.span3  
+                    div.span3
+                        if video.videoIframe != undefined
+                            a(href="#{video.videoIframe}" target="_blank") Video 
+                    div.span3
+                        a(href="http://www.skatevideosite.com#{video.url}" target="_blank") Source 
+                        
             div.sepBlue

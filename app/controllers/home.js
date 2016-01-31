@@ -144,6 +144,15 @@ router.get('/sort/rating/:id/:page', function (req, res, next) {
 	});
 });
 
+router.get('/submit', function (req, res, next) {
+	return res.render('submit', {
+	    title: _app.get('title'),
+	    description: _app.get('description'),
+	    url: req.getUrl(),
+	    bodyclass: 'submit'
+	});
+});
+
 
 router.get('/legal', function (req, res, next) {
 	return res.render('ml', {
