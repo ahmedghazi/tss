@@ -27,7 +27,7 @@ var AjaxUtils = function(){
 			console.log(ws_url)
 
 			history.pushState({ws_url}, title, url);
-			document.title = document.title+' - '+title;
+			document.title = "▶ "+SITE_NAME+' - '+title;
 
 			$.ajax({
 			  method: "GET",
@@ -119,8 +119,8 @@ if(path.indexOf("video") != -1)path = '/page';
 
 			var url = window.location.href;
 			var title = document.title;
-			
-			
+			console.log(title)
+
 			var id = $(this).parents("article").attr("id"); 
 			$("#id_article").val(id);
 
