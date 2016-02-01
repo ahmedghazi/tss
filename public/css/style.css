@@ -353,6 +353,7 @@ a.more:hover{
 .modal .modal_close{opacity: 1; pointer-events:auto;}
 .modal .modal_close:hover{color: black;}
 
+#iframe{padding-top: 0;}
 #iframe .modal_inner,
 #iframe .modal_content{height: 100%; }
 /*------------------------------------*\
@@ -410,8 +411,8 @@ input[type="search"] { /* reset normalize */
   width: 36px;
   height: 36px;
   position: fixed;
-  right: 20px;
-  top: 20px;
+  right: 16px;
+  top: 16px;
   overflow: hidden;
   text-indent: 100%;
   cursor: pointer;

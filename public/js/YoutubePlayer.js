@@ -21,6 +21,8 @@ var YoutubePlayer = function(){
 			shadow: 'transparent', // Outer ring color
 			fallback: false // Toggles displaying percentage in the title bar (possible values - true, false, 'force')
 		});
+
+		Piecon.setProgress(50);
 	};
 	
 	this.initScript = function(){
@@ -88,7 +90,8 @@ var YoutubePlayer = function(){
           	videoId: '',
           	events: {
             	'onReady': _this.onPlayerReady,
-            	'onStateChange': _this.onPlayerStateChange
+            	'onStateChange': _this.onPlayerStateChange,
+            	'onError': _this.onPlayerError
           	},
 			playerVars: {
             	controls	:'0',
@@ -107,18 +110,20 @@ var YoutubePlayer = function(){
 	};
 	
 	this.onPlayerStateChange = function(event){
-		console.log(event.data)
+		//console.log(event.data)
 		switch(event.data){
+			
 			case 0:
 				clearInterval(enterFrame);
 				clearInterval(PIETIMER);
-				Piecon.reset()
+				//Piecon.reset()
+				Piecon.setProgress(50);
 				$("html").trigger("NEXT",[IDX]);
 			break;
 			case 1:
 				duration = player.getDuration();
 				enterFrame = setInterval(_this.update, 250);			
-				PIETIMER = setInterval(_this.updatePie, 1000);		
+				//PIETIMER = setInterval(_this.updatePie, 2000);		
 				$("body").removeClass("loading");
 
 				$(el).addClass("currentItemPlaying").removeClass("state_pause");
@@ -132,8 +137,17 @@ var YoutubePlayer = function(){
 			break;
 		}
 	};
+
+	this.onPlayerError = function(event){
+		//console.log("error",event.data)
+		//clearInterval(enterFrame);
+		//clearInterval(PIETIMER);
+		//Piecon.reset()
+		$("html").trigger("NEXT",[IDX]);
+	};
 	
 	this.updatePie = function(){
+		console.log(PROGRESSION)
 		Piecon.setProgress(PROGRESSION*100);
 	};
 
