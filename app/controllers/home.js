@@ -3,7 +3,7 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	Video = mongoose.model('Video'),
 	_app,
-	postsPerPage = 20;
+	postsPerPage = 40;
 
 module.exports = function (app) {
 	_app = app;

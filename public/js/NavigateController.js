@@ -7,13 +7,14 @@ var timer;
         //the option is an array : {html:the ajax html, scripts: the scripts that already are in the html, customData:any data you associated to this state during navigate} 
 //console.log(options)
         $(".modal_close").click();
-
+        $(".morphsearch-close").click();
+        
         $("body").attr("class", options.class);
         $('head').html($("head", options.head).html());
         
         $('section').html($("section", options.html).html());
 
-        $("#loader").fadeOut();
+        $("body").removeClass("loading");
         $('section').removeClass("section_loading");
 
         $(this).trigger({type:"finishrefreshinsert"});

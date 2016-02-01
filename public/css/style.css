@@ -205,7 +205,7 @@ article.open .fiboA{padding-left: 10px;}
 .list_footer{padding: 42px 0;}
 
 
-.share{text-align: right;padding-right: 10px; cursor: pointer; display: none;}
+.share{text-align: left;cursor: pointer; display: none;}
 .share:hover{color: black;}
 
 article.open .share{display: block;}
@@ -383,6 +383,10 @@ button[type='submit']{
   width: 100%;
   text-align: left;
 }
+.morphsearch-content{
+  height: calc(100% - 188px);
+  overflow: auto;
+}
 
 .morphsearch.open .morphsearch-input,
 .morphsearch.open .morphsearch-submit{
@@ -481,10 +485,14 @@ input[type="search"] { /* reset normalize */
   header .fiboA{width: 90%;}
   header .fiboB{width: 10%;}
   header .fiboB .span3:nth-child(1){display: none;}
-  .morphsearch.open{top: 56px; padding: 0 10px;}
+  .morphsearch.open{top: 34px; padding: 0 10px;}
   .morphsearch.open .morphsearch-input, 
   .morphsearch.open .morphsearch-submit{
     font-size: 24px;
+  }
+
+  .morphsearch-content{
+    height: calc(100% - 63px);
   }
 
   section{padding: 0 10px; margin-top: 56px;}
@@ -515,10 +523,11 @@ input[type="search"] { /* reset normalize */
     margin-right: 0;
   }
   #player .controls span.time{width: 100%;text-align: center; margin-top: 10px; display: none;}
-   #player .controls .fiboB .span3:nth-child(1){width: 90%;}
+   #player .controls .fiboB .span3:nth-child(1){width: 100%;}
+   #player .controls .fiboB .span3:nth-child(1) span{width: 100%;}
    #player .controls .fiboB .span3:nth-child(2){display: none;}
-   #player .controls .fiboB .span3:nth-child(3){width: 10%;}
-  .modal{top: 56px; padding: 10px;}
+   #player .controls .fiboB .span3:nth-child(3){width: 10%; display: none;}
+  .modal{top: 34px; padding: 10px; height: calc(100% - 34px)}
   .modal h3{font-size: 24px;}
   .close{right: 10px; top: 10px;}
 }

@@ -15,7 +15,7 @@ each video in videos
                                 else
                                     i.fa.fa-heart
                     div.span3
-                        div.share
+                        div.share Share 
                             i.fa.fa-share
                         
           
@@ -36,7 +36,7 @@ each video in videos
             div.article_footer.row
                 div.fiboA
                 div.fiboB
-                    div.span3  
+                 
                     div.span3
                         if video.videoIframe != undefined
                             a(href="#{video.videoIframe}" target="_blank" rel="iframe")
@@ -46,5 +46,9 @@ each video in videos
                         a(href="http://www.skatevideosite.com#{video.url}" target="_blank")
                             span Source 
                             i.fa.fa-link 
+
+                    div.span3
+                        div.share Share 
+                            i.fa.fa-share
                         
             div.sepBlue
