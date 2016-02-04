@@ -129,7 +129,7 @@ function getTwUrl(url, title){
     var twUrl = 'https://twitter.com/intent/tweet';
         twUrl += '?url='+ encodeURIComponent(url);
         twUrl += '&text=' +encodeURIComponent(title);
-        twUrl +=  '&via=Bounews&lang=fr&hashtags=nowplaying,#tsbst';
+        twUrl +=  '&via=Bounews&lang=fr&hashtags=nowplaying,tsbst';
 
     return twUrl;
 }

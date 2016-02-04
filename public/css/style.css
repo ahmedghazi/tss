@@ -115,7 +115,7 @@ body.loading #loader{display: block;}
 .row{
   display: inline-block;
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 0 6px 0;
 }
 
 .fiboA{
