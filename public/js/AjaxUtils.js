@@ -63,10 +63,9 @@ var AjaxUtils = function(){
 
 		$("html").on('click', '.more', function(event) {
 			event.preventDefault();
-console.log(window.location)
-var path = window.location.pathname
-if(path == '/')path = '/page';
-if(path.indexOf("video") != -1)path = '/page';
+			var path = window.location.pathname
+			if(path == '/')path = '/page';
+			if(path.indexOf("video") != -1)path = '/page';
 
 			var st = $(this).parent().offset().top;
 			$("body").addClass("loading");
