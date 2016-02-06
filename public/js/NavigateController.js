@@ -25,7 +25,10 @@ var timer;
                 var id = $('section').find("article").attr("id");
                 var url = window.location.href;
                 var title = document.title;
-                disqusReset(id, url, title, '');
+                if (typeof disqusReset == 'function') { 
+                  disqusReset(id, url, title, '');
+                }
+                
             }
         },400);
 
