@@ -162,7 +162,7 @@ var AjaxUtils = function(){
 
 			$.ajax({
 				  method: "GET",
-				  url: '/api/share-count/'+id
+				  url: '/video/share-count/'+id
 				})
 					.done(function( data ) {
 						console.log(data);
