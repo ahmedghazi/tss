@@ -42,6 +42,7 @@ prepend content
                         div#disqus_thread
                         script.
                             var disqus_config = function () { this.page.url = '#{url}'; this.page.identifier = '#{video._id}'; }; (function() { var d = document, s = d.createElement('script'); s.src = '//theskateboardsoundtracks.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+                            var disqusReset = function (newIdentifier, newUrl, newTitle, newLanguage) { DISQUS.reset({ reload: true, config: function () { this.page.identifier = newIdentifier; this.page.url = newUrl; this.page.title = newTitle; } }); };
 
                 div.article_footer.row
                     div.fiboA

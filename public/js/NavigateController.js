@@ -21,7 +21,12 @@ var timer;
         
         clearTimeout(timer);
         timer = setTimeout(function(){
-            
+            if($("body").hasClass("video")){
+                var id = $('section').find("article").attr("id");
+                var url = window.location.href;
+                var title = document.title;
+                disqusReset(id, url, title, '');
+            }
         },400);
 
     };

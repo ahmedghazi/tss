@@ -45,7 +45,9 @@ var AjaxUtils = function(){
 
 						$("html,body").animate({
 							scrollTop: st
-						}, 1000)
+						}, 1000, function(){
+							
+						});
 						
 					}else{
 						var reponse = '<div class="row">';
