@@ -12,6 +12,8 @@ var express = require('express'),
 module.exports = function (app) {
     _app = app;
 	app.use('/video', router);
+
+
 };
 
 router.get('/:id', function (req, res, next) {

@@ -222,6 +222,10 @@ a.more:hover{
   color: white;
   background-color: blue;
 }
+
+.article_disqus{
+  border-top: 3px solid;
+}
 /*------------------------------------*\
     PLAYLIST
 \*------------------------------------*/

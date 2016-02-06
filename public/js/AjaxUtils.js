@@ -11,12 +11,15 @@ var AjaxUtils = function(){
 		$("html").on("click", "a.ajax_g", function(event) {
 			event.preventDefault();
 			$("body").addClass('loading');
-			var st = $(this).parents("article").position().top - 68;
-//console.log(st)
+			
+
 			arrTubeTapePlayer = [];
 			$(".article_content .ost").html("");
 			$article = $(this).parents("article");
 			$("article").removeClass('open');
+
+			var st = $(this).parents("article").position().top - 68;
+
 			$article.addClass('open');
 
 			var url = $(this).attr("href");
@@ -81,9 +84,10 @@ if(path.indexOf("video") != -1)path = '/page';
 					$(".liste_content").append(html);
 
 					$("body").removeClass("loading");
-					$("html,body").animate({
+					/*$("html,body").animate({
 						scrollTop: st
 					}, 1000)
+*/
 				});
 		});
 
