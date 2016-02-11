@@ -29,6 +29,7 @@ var timer;
                   disqusReset(id, url, title, '');
                 }
                 
+                track(url)
             }
         },400);
 

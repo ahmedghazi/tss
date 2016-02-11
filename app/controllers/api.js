@@ -20,7 +20,6 @@ module.exports = function (app) {
 
 router.get('/insert/:id', function (req, res, next) {
 	
-	//res.send("api");
 console.log("api",req.params.id)
 	var response_text = "";
 	var options = {
@@ -40,7 +39,6 @@ console.log("api",req.params.id)
             response_text += chunk;
         });
         ress.on("end", function() {
-        	//console.log(response_text)
             $ = cheerio.load(response_text);
             var len = $("#skatevideos").find("tr").length
             $("#skatevideos").find("tr").each(function(idx, tr) {
@@ -48,7 +46,6 @@ console.log("api",req.params.id)
                     var title,url,rating,year;
 
                     $(tr).find("td").each(function(_idx, td) {
-                    	//console.log($(td).text());
                     	if (_idx == 0){
                     		var a = $(td).find("a");
                     		title = $(td).text();
@@ -57,7 +54,6 @@ console.log("api",req.params.id)
                     	if (_idx == 1){
                             year = new Date();
                             year.setFullYear($(td).text());
-                    		//year = parseInt($(td).text());
                     	}
                     	if (_idx == 3){
                     		rating = parseInt($(td).text());
@@ -75,16 +71,12 @@ console.log("api",req.params.id)
                     video.save(function (err) {
                         if (!err) {
                             if(idx == len-1){
-                            //if(parseFloat(req.params.id) < 17){
                                 var next = parseFloat(req.params.id) + 1;
                                 console.log("next",next)
                                 if(next < 18)  
                                     res.redirect('/api/insert/'+next);
                                 else
                                     res.redirect("/");
-                                //res.redirect("/api/u/"+req.params.id);
-                            
-                                //res.send({id:req.params.id});
                             }
                         } else {
                             return console.log(err);

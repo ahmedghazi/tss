@@ -47,6 +47,7 @@ var AjaxUtils = function(){
 							scrollTop: st
 						}, 1000, function(){
 							
+							track(url)
 						});
 						
 					}else{
@@ -90,6 +91,7 @@ var AjaxUtils = function(){
 						scrollTop: st
 					}, 1000)
 */
+					track(path+'/'+page)
 				});
 		});
 
