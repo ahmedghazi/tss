@@ -53,13 +53,22 @@ router.get('/insert/:id', function (req, res, next) {
                             year.setFullYear($(td).text());
                     	}
                     	if (_idx == 3){
-                            if($(td).text() == "-10 votes")rating = 2.5;
-                    		else rating = parseInt($(td).text());
-                            
+                            if($(td).text() != undefined){
+                                if($(td).text() == "-10 votes")
+                                    rating = 2.5;
+                                else 
+                                    rating = parseInt($(td).text());
+                            }else{
+                                rating = 2.5;
+                            }
+                            //if($(td).text() == "-10 votes")rating = 2.5;
+                    		//else rating = parseInt($(td).text());
+                            if(isNaN(rating))rating = 2.5;
+                            console.log(rating)
                     	}
-                    	//console.log($(td).text())
+                    	
                     });
-
+                    /*
                     var video = new Video({
                         title: title,
                         url: url,
@@ -81,7 +90,7 @@ router.get('/insert/:id', function (req, res, next) {
                             console.log("else")
                             return console.log(err);
                         }
-                    });
+                    });*/
                 }
 
             });
