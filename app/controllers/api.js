@@ -64,11 +64,11 @@ router.get('/insert/:id', function (req, res, next) {
                             //if($(td).text() == "-10 votes")rating = 2.5;
                     		//else rating = parseInt($(td).text());
                             if(isNaN(rating))rating = 2.5;
-                            console.log(rating)
+                            //console.log(rating)
                     	}
                     	
                     });
-                    /*
+                    
                     var video = new Video({
                         title: title,
                         url: url,
@@ -90,7 +90,7 @@ router.get('/insert/:id', function (req, res, next) {
                             console.log("else")
                             return console.log(err);
                         }
-                    });*/
+                    });
                 }
 
             });
