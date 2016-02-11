@@ -19,7 +19,7 @@ module.exports = function (app) {
 router.get('/:id', function (req, res, next) {
     return Video
         .findById(req.params.id)
-        .populate('ost')
+        .populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
         .exec(function(err, video) {
             if (err) {
                 return next(err);
@@ -28,8 +28,8 @@ router.get('/:id', function (req, res, next) {
             if(video.ost.length == 0){
                 //res.redirect("/api/u/"+req.params.id);
                 sniffer(video.url, function (data) {
-                    console.log("cb");
-                    console.log(data.success);
+                    //console.log("cb");
+                    //console.log(data.success);
                     if(data.success == true){
                         var videoIframe = data.videoIframe;
                         var len = data.ost.length;
@@ -56,7 +56,7 @@ router.get('/:id', function (req, res, next) {
                                         
                                         video.ost = ost;
                                         if(videoIframe != undefined)video.videoIframe = videoIframe;
-                                        console.log("videoIframe ",videoIframe);
+                                        //console.log("videoIframe ",videoIframe);
                                         video.save(function (_err) {
                                             if (!_err) {
                                              
@@ -98,7 +98,7 @@ router.get('/:id', function (req, res, next) {
                 });
 
             }else{
-                console.log(video)
+                //console.log(video)
                 return res.render('video', {
                     title: _app.get('title'),
                     description: _app.get('description'),
@@ -116,12 +116,13 @@ router.get('/:id', function (req, res, next) {
 router.get('/ost/:id', function (req, res, next) {
     return Video
         .findById(req.params.id)
-        .populate('ost')
+//        .populate('ost')
+        .populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
         .exec(function(err, video) {
             if (err) {
                 return next(err);
             }
-            console.log(video.ost.length)
+            //console.log(video.ost.length)
             if(video.ost.length == 0){
                 res.send(false);
             }else{
@@ -139,7 +140,8 @@ router.get('/ost/:id', function (req, res, next) {
 router.get('/sniff-ost/:id', function (req, res, next) {
     return Video
         .findById(req.params.id)
-        .populate('ost')
+//        .populate('ost')
+        .populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
         .exec(function(err, video) {
             if (err) {
                 return next(err);
@@ -161,7 +163,7 @@ router.get('/sniff-ost/:id', function (req, res, next) {
                             videoId: item._videoId
                         });
 
-                        console.log(item)
+                        //console.log(item)
 
                         track.save(function (err) {
                             if (!err) {

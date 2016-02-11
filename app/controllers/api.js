@@ -15,17 +15,14 @@ module.exports = function (app) {
 };
 
     
-
-
-
 router.get('/insert/:id', function (req, res, next) {
 	
-console.log("api",req.params.id)
+    console.log("api",req.params.id)
 	var response_text = "";
 	var options = {
 	        host: 'www.skatevideosite.com'
 	      , port: 80
-	      , path: '/index.php?page=skatevideos&sort=rating&p='+req.params.id
+	      , path: '/index.php?page=skatevideos&sort=year&p='+req.params.id
 	      , method: 'GET'
 	    };
 
@@ -56,9 +53,11 @@ console.log("api",req.params.id)
                             year.setFullYear($(td).text());
                     	}
                     	if (_idx == 3){
-                    		rating = parseInt($(td).text());
+                            if($(td).text() == "-10 votes")rating = 2.5;
+                    		else rating = parseInt($(td).text());
+                            
                     	}
-                    	
+                    	//console.log($(td).text())
                     });
 
                     var video = new Video({
@@ -79,15 +78,13 @@ console.log("api",req.params.id)
                                     res.redirect("/");
                             }
                         } else {
+                            console.log("else")
                             return console.log(err);
                         }
                     });
                 }
 
             });
-
-
-   
         })
 
     })

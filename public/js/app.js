@@ -109,7 +109,7 @@ function bindEvents(){
 
 	$(".player_ost .play").on("click", function(){
 		$article = $(this).closest("article");
-		console.log($article)
+		console.log($article.find(".currentItemPlaying").length)
 		if($article.find(".currentItemPlaying").length == 0){
 			console.log($article.find(".ttp").eq(0))
 			$article.find(".ttp").eq(0).click();

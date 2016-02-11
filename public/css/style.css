@@ -380,7 +380,7 @@ button[type='submit']{
 }
 
 .morphsearch.open{
-  position: fixed;top: 58px; left: 0;
+  position: fixed;top: 56px; left: 0;
   padding: 0 20px;
   height: calc(100% - 58px);
   background-color: white;
