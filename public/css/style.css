@@ -115,7 +115,8 @@ body.loading #loader{display: block;}
 .row{
   display: inline-block;
   width: 100%;
-  padding: 10px 0 6px 0;
+  /*padding: 10px 0 6px 0;*/
+  padding: 10px 0 7px 0;
 }
 
 .fiboA{
@@ -133,7 +134,7 @@ p{margin-bottom: 1em;}
 p:last-child{margin-bottom: 0;}
 
 .btn{
-  padding: 10px 30px;
+  padding: 10px 30px 7px 30px;
   border: 3px solid;
 }
 
@@ -240,7 +241,7 @@ a.more:hover{
 .ttp{
     font-size: 16px;
     position: relative;
-    height: 36px;
+    /*height: 36px;*/
     background-color: white;
     cursor: pointer;
     color: blue;
