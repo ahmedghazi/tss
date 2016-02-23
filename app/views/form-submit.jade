@@ -1,0 +1,50 @@
+extends layout
+
+prepend content
+    
+    section.submit
+        div.fiboA
+        div.fiboB
+            form(name="submit", action="/api/submit", method="post")
+                
+                h3 Video infos
+
+                div.row
+                    div.span3
+                        input(type="text", name="title" placeholder="Title" value="")
+                    div.span3
+                        input(type="number", name="year" placeholder="Year (YYYY)" value="")
+                    div.span3
+
+                div.sep20
+
+                h3 Video soundtrack
+                div.form-row-soundtrack
+                    div.row.form-row
+                        div.span3
+                            input(type="text", name="ost[0][part]" placeholder="Part")
+                        div.span3
+                            input(type="text", name="ost[0][artist]" placeholder="Artist")
+                        div.span3
+                            input(type="text", name="ost[0][track]" placeholder="Track")
+                        
+                        button(class="remove-row hvr" type="button") -
+                
+
+                div.row.form-actions
+                    button(class="add-row" type="button") +
+
+                
+
+                div.row
+                    input(type="text", name="videoIframe" placeholder="Video url")
+                
+
+
+                div.row
+                    textarea(name='message', rows=10, cols=30, placeholder="Message") Some words ?
+
+                div.sep10
+                
+                input(type="hidden" name="videoStatus" value="submission")
+                input(type="submit", value="Submit")

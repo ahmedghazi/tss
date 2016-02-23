@@ -4,6 +4,7 @@ var express = require('express'),
 	http = require('http'),
 	cheerio = require('cheerio'),
     Youtube = require('youtube-node'),
+    forEach = require('async-foreach').forEach,
 	Video = mongoose.model('Video'),
     //AIzaSyBMcFRVdw_jipl7LMlnP-87PpOet7uNN8c
     Track = mongoose.model('Track'),
@@ -12,7 +13,13 @@ var express = require('express'),
 module.exports = function (app) {
     _app = app;
 	app.use('/api', router);
+
+    youTube = new Youtube();
+    youTube.setKey('AIzaSyBMcFRVdw_jipl7LMlnP-87PpOet7uNN8c');
+
+
 };
+
 
     
 router.get('/insert/:id', function (req, res, next) {
@@ -303,8 +310,6 @@ router.get('/empty', function (req, res, next) {
 
     return Video
             .find( {ost: { $exists: true, $size: 0 } } )
-            //.sort({year: 'desc'})
-            //.limit(postsPerPage)
             .exec(function(err, videos) {
         if (err) {
             console.log(err);
@@ -317,13 +322,118 @@ router.get('/empty', function (req, res, next) {
 });
 
 router.get('/drop', function (req, res, next) {
-    /*Video.remove({}, function(err) { 
-       console.log('Videos removed') 
-       Track.remove({}, function(err) { 
-          console.log('Tracks removed') 
-          res.redirect("/");
-       });
-    });*/
     req.resetDb();
     res.redirect("/");
 });
+
+router.get('/maj1', function (req, res, next) {
+    return Video
+            .update( 
+                {},
+                {$set: { videoStatus: "published" } },
+                { multi: true }
+            )
+            .exec(function(err, videos) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
+        //console.log(app.get('title'));
+        return res.send({status:"OK"});
+    });
+});
+
+
+
+
+router.post('/submit', function (req, res, next) {
+    console.log(req.body)
+
+    //var videoIframe = req.body.videoIframe;
+    var len = req.body.ost.length;
+    var ost = [];
+    var count = 0;
+    var _videoId = '';
+
+    forEach(req.body.ost, function(item, index, arr) {
+    //for(var i in data.ost){
+//console.log(item)
+        var q = item.artist+" "+item.track;
+        youTube.search(q, 2, function(error, result) {
+            if (error) {
+                console.log(error);
+                //callback({success:false, ost:ost});
+            } else {
+                if(result.items.length > 0){
+                    _videoId = result.items[0].id.videoId;
+                }else{
+                    _videoId = null;
+                }
+
+
+                var track = new Track({
+                    rider: item.part,
+                    artist: item.artist,
+                    track: item.track,
+                    videoId: _videoId
+                });
+
+                //console.log(track)
+                
+                track.save(function (err) {
+                    if (!err) {
+                        //console.log(count,len)
+                        ost.push(track._id);
+                        if(count == len-1){
+                            //console.log(ost)
+                            var year = new Date();
+                            year.setFullYear(req.body.year);
+
+                            var video = new Video();
+                            video.title = req.body.title;
+                            video.year = year;
+                            video.ost = ost;
+                            video.rating = 0;
+                            video.videoIframe = req.body.videoIframe;
+                            
+                            video.save(function (_err) {
+                                if (!_err) {
+                                    return res.redirect("/video/"+video._id);
+                                }else{
+                                    return console.log(_err);
+                                }
+                            });
+                        }
+                        count++;
+                    }
+                });
+            }
+        });
+
+        
+    });
+
+    //return res.json(req.body);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

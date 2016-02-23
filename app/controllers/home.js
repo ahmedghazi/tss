@@ -144,14 +144,6 @@ router.get('/sort/rating/:id/:page', function (req, res, next) {
 	});
 });
 
-router.get('/submit', function (req, res, next) {
-	return res.render('submit', {
-	    title: _app.get('title'),
-	    description: _app.get('description'),
-	    url: req.getUrl(),
-	    bodyclass: 'submit'
-	});
-});
 
 
 router.get('/legal', function (req, res, next) {
@@ -170,4 +162,15 @@ router.get('/contact', function (req, res, next) {
 	    url: req.getUrl(),
 	    bodyclass: 'contact'
 	});
+});
+
+
+router.get('/submit', function (req, res, next) {
+    console.log("hrer")
+    return res.render('form-submit', {
+        title: _app.get('title'),
+        description: _app.get('description'),
+        url: req.getUrl(),
+        bodyclass: 'Submit',
+    });
 });

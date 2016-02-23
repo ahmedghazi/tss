@@ -39,8 +39,8 @@ function initObjects(){
 	au = new AjaxUtils();
 	au.init();
 
-	//vu = new ViewUtils();
-	//vu.init();
+	vu = new ViewUtils();
+	vu.init();
 
 //	console.log("initObjects");
 }
