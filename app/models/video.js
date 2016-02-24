@@ -17,6 +17,7 @@ var VideoSchema = new Schema({
 	url: String,
 	year: Date,
 	rating: Number,
+  view: Number,
 	ost: [{type: Schema.Types.ObjectId, ref: 'Track'}],
   videoStatus: {
     type: String, 
