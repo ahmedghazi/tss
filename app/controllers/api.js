@@ -5,9 +5,11 @@ var express = require('express'),
 	cheerio = require('cheerio'),
     Youtube = require('youtube-node'),
     forEach = require('async-foreach').forEach,
-	Video = mongoose.model('Video'),
+    Video = mongoose.model('Video'),
+	User = mongoose.model('User'),
     //AIzaSyBMcFRVdw_jipl7LMlnP-87PpOet7uNN8c
     Track = mongoose.model('Track'),
+    nodemailer = require("nodemailer"),
     _app;
 
 module.exports = function (app) {
@@ -20,6 +22,21 @@ module.exports = function (app) {
 
 };
 
+router.get('/all', function (req, res, next) {
+    return Video
+            .find()
+            .sort({year: 'desc'})
+            //.limit(10)
+            .exec(function(err, videos) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
+        //console.log(app.get('title'));
+        return res.send(videos);
+    });
+    
+});
 
     
 router.get('/insert/:id', function (req, res, next) {
@@ -370,7 +387,6 @@ router.post('/submit', function (req, res, next) {
                     _videoId = null;
                 }
 
-
                 var track = new Track({
                     rider: item.part,
                     artist: item.artist,
@@ -386,21 +402,46 @@ router.post('/submit', function (req, res, next) {
                         ost.push(track._id);
                         if(count == len-1){
                             //console.log(ost)
-                            var year = new Date();
-                            year.setFullYear(req.body.year);
 
-                            var video = new Video();
-                            video.title = req.body.title;
-                            video.year = year;
-                            video.ost = ost;
-                            video.rating = 0;
-                            video.videoIframe = req.body.videoIframe;
-                            
-                            video.save(function (_err) {
-                                if (!_err) {
-                                    return res.redirect("/video/"+video._id);
-                                }else{
+                            var user = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                            });
+
+                            user.save(function (_err) {
+                                if (_err) {
                                     return console.log(_err);
+                                }else{
+                                    
+                                    var year = new Date();
+                                    year.setFullYear(req.body.year);
+
+                                    var video = new Video({
+                                        title: req.body.title,
+                                        year: year,
+                                        ost: ost,
+                                        rating: 0,
+                                        videoIframe: req.body.videoIframe,
+                                        _user: user._id
+                                    });
+                                    
+
+                                    video.save(function (_err) {
+                                        if (!_err) {
+
+                                            var mailOptions = {
+                                                to : "ahmed.ghazi@soixanteseize.com",
+                                                subject : "TSBST submit",
+                                                text : "/video/"+video._id
+                                            }
+                                            sendEmail(mailOptions, res);
+
+                                            return res.redirect("/video/"+video._id);
+                                        }else{
+                                            return console.log(_err);
+                                        }
+                                    });
+
                                 }
                             });
                         }
@@ -418,8 +459,37 @@ router.post('/submit', function (req, res, next) {
 
 
 
+router.get('/email', function (req, res, next) {
+    var mailOptions = {
+        to : "ahmed.ghazi@soixanteseize.com",
+        subject : "TSBST submit",
+        text : "Un test"
+    }
+    sendEmail(mailOptions, res);
+    
+});
 
 
+function sendEmail(mailOptions, res){
+    var smtpTransport = nodemailer.createTransport("SMTP",{
+        service: "Gmail",
+        auth: {
+            user: "atmet.ghazi",
+            pass: "vviirrggiill"
+        }
+    });
+
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error){
+            console.log(error);
+            res.end("error");
+        }else{
+            console.log("Message sent: " + response.message);
+            res.end("sent");
+        }
+    });
+}
 
 
 

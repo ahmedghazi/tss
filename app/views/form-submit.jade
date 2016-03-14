@@ -44,7 +44,21 @@ prepend content
                 div.row
                     textarea(name='message', rows=10, cols=30, placeholder="Message") Some words ?
 
+                div.sep20
+
+                h3 Somethings about you
+
+                div.row
+                    div.span3
+                        input(type="text", name="name" placeholder="Your Name")
+                    div.span3
+                        input(type="email", name="email" placeholder="Your Email")
+                    div.span3.last
+                        input(type="hidden" name="videoStatus" value="submission")
+                        input(type="submit", value="Submit")
+
+            
+
                 div.sep10
                 
-                input(type="hidden" name="videoStatus" value="submission")
-                input(type="submit", value="Submit")
+                

@@ -24,7 +24,7 @@ router.get('/:id', function (req, res, next) {
             if (err) {
                 return next(err);
             }
-            
+            console.log(video);
             if(video.ost.length == 0){
                 //res.redirect("/api/u/"+req.params.id);
                 sniffer(video.url, function (data) {

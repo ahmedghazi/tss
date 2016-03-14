@@ -168,7 +168,9 @@ article{
 	padding: 0; 
 }
 .liste .article_inner{display: inline-block; width: 100%;}
-
+.liste_content .row{
+    padding-bottom: 7px;
+}
 .article_header{}
 .article_header .fiboA{
   overflow: hidden;
@@ -274,7 +276,7 @@ a.more:hover{
 #player.state_pause .controls span.pause{display: none;}
 #player.state_pause .controls span.play{display: inline-block;}
 .ttp.currentItemPlaying .play{display: none}
-.ttp.currentItemPlaying .pause{display: inline-block;}
+.ttp.currentItemPlaying .playing{display: inline-block;}
 
 #ph{display: none;}
 
@@ -316,16 +318,19 @@ a.more:hover{
 .scrubber{opacity: 1}
 
 .fa-play,
-.fa-pause{line-height: 13px;}
+.fa-pause
+.fa-playing{line-height: 13px;}
 
 .controls .backward,
 .controls .play,
 .controls .pause,
+.controls .playing,
 .controls .forward,
 .controls .mute{cursor: pointer;}
 .controls .backward:hover,
 .controls .play:hover,
 .controls .pause:hover,
+.controls .playing:hover,
 .controls .forward:hover,
 .controls .mute:hover{color: black;}
 /*------------------------------------*\
@@ -485,8 +490,9 @@ input[type="search"] { /* reset normalize */
     border: 3px solid;
 }
 .submit .span3 input{width: calc(100% - 10px);}
-.submit .span3:nth-child(3) input{width: calc(100% - 54px);}
+.submit .span3:not(.last):nth-child(3) input{width: calc(100% - 54px);}
 
+.submit textarea{padding: 10px;}
 .submit button{
     border: none;
     color: white;
@@ -497,8 +503,15 @@ input[type="search"] { /* reset normalize */
 }
 .submit button:hover{background: black;}
 
-.submit input[type=submit]{background: blue; color: white;border: none}
-.submit input[type=submit]:hover{color: white; background-color: black; border-color: blue;}
+.submit input[type=submit]{
+    background: blue; color: white;
+    width: 100%;
+    border-color: blue;
+}
+.submit input[type=submit]:hover{
+    color: white; background-color: black; border-color: black;
+
+}
 
 .form-row{position: relative;}
 .form-row .hvr{

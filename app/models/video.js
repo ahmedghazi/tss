@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 var VideoSchema = new Schema({
+  _user : { type: Schema.Types.ObjectId, ref: 'User' },
 	date_created: {
         index: true,
         type: Date, default: Date.now
