@@ -168,6 +168,7 @@ article{
 	padding: 0; 
 }
 .liste .article_inner{display: inline-block; width: 100%;}
+.liste_header .row,
 .liste_content .row{
     padding-bottom: 7px!important;
 }
