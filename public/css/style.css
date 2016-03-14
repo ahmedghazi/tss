@@ -169,7 +169,7 @@ article{
 }
 .liste .article_inner{display: inline-block; width: 100%;}
 .liste_content .row{
-    padding-bottom: 7px;
+    padding-bottom: 7px!important;
 }
 .article_header{}
 .article_header .fiboA{
