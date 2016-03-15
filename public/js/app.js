@@ -27,17 +27,19 @@ function init(){
 }
 
 function initObjects(){
-	_GoogleSearch = new GoogleSearch();
-	_GoogleSearch.init();
+	au = new AjaxUtils();
+	au.init();
+	
+	nc = new NavigateController();
+	nc.init();
+
+	//_GoogleSearch = new GoogleSearch();
+	//_GoogleSearch.init();
 
 	_YoutubePlayer = new YoutubePlayer();
 	_YoutubePlayer.init();
 
-	nc = new NavigateController();
-	nc.init();
-
-	au = new AjaxUtils();
-	au.init();
+	
 
 	vu = new ViewUtils();
 	vu.init();

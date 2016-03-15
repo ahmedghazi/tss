@@ -54,5 +54,7 @@ var ViewUtils = function(){
 	this.parseContent = function(c){
         return c;
     };
+
+    
 }
 

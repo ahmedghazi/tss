@@ -47,6 +47,7 @@ var AjaxUtils = function(){
 							scrollTop: st
 						}, 1000, function(){
 							
+							au.postData("/api/view-count/"+id, {url:url});
 							track(url)
 						});
 						
@@ -90,7 +91,8 @@ var AjaxUtils = function(){
 					/*$("html,body").animate({
 						scrollTop: st
 					}, 1000)
-*/
+*/					
+
 					track(path+'/'+page)
 				});
 		});
@@ -192,6 +194,19 @@ var AjaxUtils = function(){
 		    $this.mouseup(mouseUpHandler);
 		});
 	};
+
+	this.postData = function(u,d){
+		//console.log(u,d)
+		console.log(arguments.callee.caller.toString())
+		$.ajax({
+			//method: "POST",
+			url: u, 
+			data: d,
+			success: function(result){
+	        	//console.log(result);
+	    	}
+		});
+    };
 }
 
 

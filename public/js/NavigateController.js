@@ -10,8 +10,9 @@ var timer;
         $(".morphsearch-close").click();
         
         $("body").attr("class", options.class);
+        $("section").attr("class", $("section", options.html).attr("class"));
+
         $('head').html($("head", options.head).html());
-        
         $('section').html($("section", options.html).html());
 
         $("body").removeClass("loading");
@@ -29,7 +30,8 @@ var timer;
                 if (typeof disqusReset == 'function') { 
                   disqusReset(id, url, title, '');
                 }
-                
+                console.log("change url")
+                au.postData("/api/view-count/"+id, {url:url});
                 track(url)
             }
         },400);
@@ -51,6 +53,11 @@ var NavigateController = function() {
             timer = setTimeout(function(){
 
             },1000);
+        }
+
+        if($("body").hasClass("video")){
+            var id = $("article").attr("id");
+            au.postData("/api/view-count/"+id, {url:window.location.href});
         }
 	};
 

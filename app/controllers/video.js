@@ -205,40 +205,7 @@ router.get('/sniff-ost/:id', function (req, res, next) {
     });
 });
 
-router.get('/view-count/:id', function (req, res, next) {
-    return Video
-        .findById(req.params.id)
-        .exec(function(err, video) {
-            if (err) {
-                return next(err);
-            }
-            video.view = video.view+1;
 
-            video.save(function(err) {
-                if (err)
-                    return next(err);
-                else
-                    res.send(video.view)
-            });
-            
-    });
-});
 
-router.get('/share-count/:id', function (req, res, next) {
-    return Video
-        .findById(req.params.id)
-        .exec(function(err, video) {
-            if (err) {
-                return next(err);
-            }
-            video.rating = video.rating+1;
 
-            video.save(function(err) {
-                if (err)
-                    return next(err);
-                else
-                    res.send(video.rating)
-            });
-            
-    });
-});
+

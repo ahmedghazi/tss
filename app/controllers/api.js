@@ -458,6 +458,48 @@ router.post('/submit', function (req, res, next) {
 });
 
 
+router.get('/view-count/:id', function (req, res, next) {
+    return Video
+        .findById(req.params.id)
+        .exec(function(err, video) {
+            if (err) {
+                return next(err);
+            }
+            if(video.view)
+                video.view = parseFloat(video.view)+1;
+            else
+                video.view = 1;
+
+            video.save(function(err) {
+                if (err)
+                    return next(err);
+                else
+                    res.send(video)
+            });
+            
+    });
+});
+
+router.get('/share-count/:id', function (req, res, next) {
+    return Video
+        .findById(req.params.id)
+        .exec(function(err, video) {
+            if (err) {
+                return next(err);
+            }
+            video.rating = video.rating+1;
+
+            video.save(function(err) {
+                if (err)
+                    return next(err);
+                else
+                    res.send(video.rating)
+            });
+            
+    });
+});
+
+
 
 router.get('/email', function (req, res, next) {
     var mailOptions = {

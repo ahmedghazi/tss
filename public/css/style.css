@@ -242,7 +242,8 @@ a.more:hover{
 .ttp:nth-child(odd){}
 
 
-.player_ost .pause{display: none;}
+.player_ost .pause,
+.player_ost .playing{display: none;}
 
 .ttp{
     font-size: 16px;
@@ -557,19 +558,21 @@ input[type="search"] { /* reset normalize */
   footer{padding: 10px;}
 
   header .fiboA{width: 90%;}
-  header .fiboB{width: 10%;}
+  header .fiboB{width: 10%; text-align: right;}
   header .fiboB .span3:nth-child(1){display: none;}
+  header .fiboB .span3{width: auto;}
   .morphsearch.open{top: 34px; padding: 0 10px;}
   .morphsearch.open .morphsearch-input, 
   .morphsearch.open .morphsearch-submit{
     font-size: 24px;
   }
+  .morphsearch-submit span{display: none;}
 
   .morphsearch-content{
     height: calc(100% - 63px);
   }
 
-  section{padding: 0 10px; margin-top: 56px;}
+  section{padding: 0 10px; margin-top: 34px;}
   body.video section{margin-top: 34px;}
   .liste_header .fiboB{display: none;}
   .article_header .fiboA{width: 80%;}
@@ -604,4 +607,10 @@ input[type="search"] { /* reset normalize */
   .modal{top: 34px; padding: 10px; height: calc(100% - 34px)}
   .modal h3{font-size: 24px;}
   .close{right: 10px; top: 10px;}
+
+  .sepBlue{height: 2px;}
+
+  section.submit .fiboA{display: none;}
+  section.submit .fiboB{width: 100%;}
+  .submit button{height: 40px;}
 }
