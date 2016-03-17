@@ -9,11 +9,8 @@ each video in videos
                     div.span3
                         h3.year #{video.year.getFullYear()}
                     div.span3
-                        h3.rating #{video.rating} 
-                            if video.rating == 0
-                                    i.fa.fa-heart-o
-                                else
-                                    i.fa.fa-heart
+                        h3.view #{video.view} 
+                            i.fa.fa-eye
                     div.span3
                         div.share Share 
                             i.fa.fa-share
@@ -22,20 +19,11 @@ each video in videos
             div.article_content
                 div.ost_header.row
                     div.fiboA.player_ost
-                        div.controls
-                            span.play
-                                i.fa.fa-play
-                            span.pause
-                                i.fa.fa-pause
-                            span.playing
-                                div.equalizer
-                                    span
-                                    span
-                                    span
+                        
                     div.fiboB
-                        div.span3 Part
-                        div.span3 Artist
-                        div.span3 Track
+                        div.span3 PART
+                        div.span3 ARTIST
+                        div.span3 TRACK
                 div.ost
 
             div.article_footer.row

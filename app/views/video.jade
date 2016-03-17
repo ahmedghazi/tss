@@ -23,11 +23,9 @@ prepend content
                         div.span3
                             h3.year #{video.year.getFullYear()}
                         div.span3
-                            h3.rating #{video.rating} 
-                                if video.rating == 0
-                                    i.fa.fa-heart-o
-                                else
-                                    i.fa.fa-heart
+                            h3.view #{video.view} 
+                                i.fa.fa-eye
+ 
                         div.span3
                             div.share Share  
                                 i.fa.fa-share
