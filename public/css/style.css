@@ -281,6 +281,10 @@ a.more:hover{
 .ttp.currentItemPlaying .play{display: none}
 .ttp.currentItemPlaying .playing{display: inline-block;}
 
+.ttp.currentItemPlaying .controls:hover span.playing{display: none;}
+.ttp.currentItemPlaying .controls:hover span.pause{display: inline-block;}
+
+
 #ph{display: none;}
 
 #player.offside_bottom{display: none;}

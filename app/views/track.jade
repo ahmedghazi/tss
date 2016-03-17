@@ -1,28 +1,16 @@
-div.ost_header.row
-    div.fiboA.player_ost
+div(id='#{ost._id}' class='row ttp' data-videoid='#{ost.videoId}')
+    div.fiboA.player_track
         div.controls
             span.play
                 i.fa.fa-play
             span.pause
                 i.fa.fa-pause
+            span.playing
+                div.equalizer
+                    span
+                    span
+                    span
     div.fiboB
-        div.span3 Part
-        div.span3 Artist
-        div.span3 Track
-each ost in video.ost
-    div(id='#{ost._id}' class='row ttp' data-videoid='#{ost.videoId}')
-        div.fiboA.player_track
-            div.controls
-                span.play
-                    i.fa.fa-play
-                span.pause
-                    i.fa.fa-pause
-                span.playing
-                    div.equalizer
-                        span
-                        span
-                        span
-        div.fiboB
-            div.span3.track_rider #{ost.rider}
-            div.span3.track_artist #{ost.artist}
-            div.span3.track_title #{ost.track}
+        div.span3.track_rider #{ost.rider}
+        div.span3.track_artist #{ost.artist}
+        div.span3.track_title #{ost.track}

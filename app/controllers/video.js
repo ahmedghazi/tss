@@ -126,7 +126,7 @@ router.get('/ost/:id', function (req, res, next) {
             if(video.ost.length == 0){
                 res.send(false);
             }else{
-                return res.render('track', {
+                return res.render('ost', {
                     title: _app.get('title'),
                     description: _app.get('description'),
                     url: req.getUrl(),
@@ -176,7 +176,7 @@ router.get('/sniff-ost/:id', function (req, res, next) {
                                     video.save(function (_err) {
                                         if (!_err) {
                                          
-                                            return res.render('track', {
+                                            return res.render('ost', {
                                                 title: _app.get('title'),
                                                 description: _app.get('description'),
                                                 url: req.getUrl(),
