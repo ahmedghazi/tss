@@ -155,7 +155,7 @@ router.get('/sort/view/:id', function (req, res, next) {
 	        console.log(err);
 	        return next(err);
 	    }
-	    //console.log(app.get('title'));
+	    console.log(req.params.id);
 	    return res.render('home', {
 	        title: _app.get('title'),
 	        description: _app.get('description'),
