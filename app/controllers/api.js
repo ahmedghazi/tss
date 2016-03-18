@@ -12,6 +12,10 @@ var express = require('express'),
     nodemailer = require("nodemailer"),
     _app;
 
+var fs = require('fs');
+var parse = require('csv-parse');
+var async = require('async');
+
 module.exports = function (app) {
     _app = app;
 	app.use('/api', router);
@@ -534,6 +538,49 @@ function sendEmail(mailOptions, res){
 }
 
 
+router.get('/analytics', function (req, res, next) {
+    
+
+    var inputFile = _app.get("root")+'/public/files/analytics.csv';
+
+    var parser = parse({delimiter: ','}, function (err, data) {
+   
+        // 1st para in async.each() is the array of items
+        async.each(data,
+            // 2nd param is the function that each item is passed to
+            function(line, callback){
+        
+                var title = line[0].replace("▶ THE SKATEBOARD SOUNDTRACKS - ","");
+                var view = line[1];
+               
+                Video.update(
+                    { title: { $in: [title, title+" "] } },
+                    { $set: { "view": view } },
+                    function(_err, results) {
+                        if (!_err) {
+                            console.log(results)   
+                        }
+                        callback();
+                    }
+                )
+                //
+            },
+            // 3rd param is the function to call when everything's done
+            function(err){
+                // All tasks are done now
+                doSomethingOnceAllAreDone();
+            }
+        );
+
+    });
+    fs.createReadStream(inputFile).pipe(parser);
+
+    
+
+    function doSomethingOnceAllAreDone(){
+        res.send("Everything is done.");
+    }
+});
 
 
 

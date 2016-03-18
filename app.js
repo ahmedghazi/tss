@@ -21,6 +21,8 @@ models.forEach(function (model) {
 var app = express();
 app.set('title', 'THE SKATEBOARD SOUNDTRACKS');
 app.set('description', 'A PLACE FOR MUSIC ON WHEELS');
+app.set('root', config.root);
+
 
 app.use(function(req, res, next) {
 	req.getUrl = function() {
