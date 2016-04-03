@@ -70,7 +70,7 @@ body {
 header{
 	position: fixed;
 	top:0px;
-	padding: 20px;
+	padding: 20px 20px 15px;
 	background-color: white;
 	width:100%;
   z-index: 1;
@@ -78,7 +78,7 @@ header{
 }
 
 section{
-	margin-top: 58px;
+	margin-top: 53px;
   margin-bottom: 82px;
 	padding: 0 20px;
 }
@@ -173,6 +173,7 @@ article{
 	padding: 0; 
 }
 .liste .article_inner{display: inline-block; width: 100%;}
+.liste_header.row{padding-top: 0;}
 .liste_header.row,
 .liste_content .row{
     padding-bottom: 7px!important;
@@ -413,8 +414,8 @@ a.more:hover{
     MODAL
 \*------------------------------------*/
 .modal{
-  position: fixed; top: 58px;left: 0;
-  padding: 20px;
+  position: fixed; top: 52px;left: 0;
+  padding: 0 20px;
   width: 100%; height: calc(100% - 58px);
   background-color: white;
   color: blue;
@@ -438,6 +439,7 @@ a.more:hover{
 
 .modal .row{
   margin-bottom: 2em;
+  padding-top: 0;
 }
 .modal .modal_close{opacity: 1; pointer-events:auto;}
 .modal .modal_close:hover{color: black;}
@@ -465,7 +467,7 @@ button[type='submit']{
 }
 
 .morphsearch.open{
-  position: fixed;top: 56px; left: 0;
+  position: fixed;top: 51px; left: 0;
   padding: 0 20px;
   height: calc(100% - 58px);
   background-color: white;
@@ -501,7 +503,7 @@ input[type="search"] { /* reset normalize */
 }
 
 .close {
-  width: 36px;
+  width: 36px;width: 106px;
   height: 36px;
   position: fixed;
   right: 16px;
@@ -534,7 +536,8 @@ input[type="search"] { /* reset normalize */
   width: 3px;
   height: 100%;
   top: 0;
-  left: 50%;
+  /*left: 50%;*/
+  right: 12px;
   border-radius: 3px;
 
   background: blue;
@@ -687,4 +690,10 @@ input[type="search"] { /* reset normalize */
   section.submit .fiboA{display: none;}
   section.submit .fiboB{width: 100%;}
   .submit button{height: 40px;}
+  .article_disqus .fiboA{
+    display: none;
+  }
+  .article_disqus .fiboB{width: 100%;}
 }
+
+

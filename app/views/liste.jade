@@ -9,8 +9,12 @@ each video in videos
                     div.span3
                         h3.year #{video.year.getFullYear()}
                     div.span3
-                        h3.view #{video.view} 
-                            i.fa.fa-eye
+                        if video.view
+                            h3.view #{video.view} 
+                                i.fa.fa-eye
+                        else
+                            h3.view #{video.view} 
+                                i.fa.fa-eye-slash
                     div.span3
                         div.share Share 
                             i.fa.fa-share

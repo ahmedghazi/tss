@@ -1,10 +1,12 @@
 var ww,wh,fu,nc,vu,au,prev_st,
 	SITE_NAME = 'THE SKATEBOARD SOUNDTRACKS',
+	isTouchDevice,
 	_GoogleSearch,
 	_YoutubePlayer,
 	_TubeTapePlayer,
 	arrTubeTapePlayer = [],
-	currentItemPlaying = null;
+	currentItemPlaying = null,
+	feedUrl = [];
 
 jQuery(document).ready(function ($) {
 	format();
@@ -22,6 +24,10 @@ $(window).load(function(){
 
 
 function init(){
+	isTouchDevice = 'ontouchstart' in document.documentElement;
+	//console.log(isTouchDevice)
+	if(window.location.pathname == "/")feedUrl.push(window.location.href)
+
 	bindEvents();
 	initObjects();
 }

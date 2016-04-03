@@ -17,6 +17,7 @@ module.exports = function (app) {
 };
 
 router.get('/:id', function (req, res, next) {
+    var metas = '';
     return Video
         .findById(req.params.id)
         .populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
@@ -44,7 +45,7 @@ router.get('/:id', function (req, res, next) {
                                 track: item[2],
                                 videoId: item[3]
                             });
-
+                            if(item[0])metas += item[0]+", ";
                             //console.log(track)
 
                             track.save(function (err) {
@@ -62,7 +63,8 @@ router.get('/:id', function (req, res, next) {
                                              
                                                 return Video
                                                     .findById(req.params.id)
-                                                    .populate('ost')
+//                                                    .populate('ost')
+                                                    .populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
                                                     .exec(function(err, video) {
                                                         if (err) {
                                                             return next(err);
@@ -70,7 +72,7 @@ router.get('/:id', function (req, res, next) {
                                                         console.log(video)
                                                         return res.render('video', {
                                                             title: _app.get('title'),
-                                                            description: _app.get('description'),
+                                                            description: _app.get('description')+", "+metas,
                                                             url: req.getUrl(),
                                                             bodyclass: 'video',
                                                             video: video,
@@ -98,10 +100,15 @@ router.get('/:id', function (req, res, next) {
                 });
 
             }else{
-                //console.log(video)
+                //console.log(video.ost)
+                forEach(video.ost, function(item, index, arr) {
+                    //console.log(item.rider)
+                    if(item.rider)metas += item.rider+", ";
+                });
+                console.log(metas)
                 return res.render('video', {
                     title: _app.get('title'),
-                    description: _app.get('description'),
+                    description: _app.get('description')+", "+metas,
                     url: req.getUrl(),
                     bodyclass: 'video',
                     video: video,
@@ -138,6 +145,7 @@ router.get('/ost/:id', function (req, res, next) {
 });
 
 router.get('/sniff-ost/:id', function (req, res, next) {
+    var metas = '';
     return Video
         .findById(req.params.id)
 //        .populate('ost')
@@ -162,7 +170,7 @@ router.get('/sniff-ost/:id', function (req, res, next) {
                             track: item._track,
                             videoId: item._videoId
                         });
-
+                        if(item._rider)metas += item._rider+", ";
                         //console.log(item)
 
                         track.save(function (err) {
@@ -178,7 +186,7 @@ router.get('/sniff-ost/:id', function (req, res, next) {
                                          
                                             return res.render('ost', {
                                                 title: _app.get('title'),
-                                                description: _app.get('description'),
+                                                description: _app.get('description')+", "+metas,
                                                 url: req.getUrl(),
                                                 bodyclass: 'video',
                                                 video: video,
