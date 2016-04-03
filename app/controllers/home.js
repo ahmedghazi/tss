@@ -168,9 +168,10 @@ router.get('/sort/view/:id', function (req, res, next) {
 
 router.get('/sort/view/:id/:page', function (req, res, next) {
 	var skip = parseInt(req.params.page * postsPerPage);
+	console.log(req.params.page,postsPerPage,skip)
 	return Video
 			.find()
-			.sort({year: req.params.id})
+			.sort({view: req.params.id})
 			.limit(postsPerPage)
 			.skip(skip)
 			.exec(function(err, videos) {
@@ -178,6 +179,7 @@ router.get('/sort/view/:id/:page', function (req, res, next) {
 	        console.log(err);
 	        return next(err);
 	    }
+	    //return res.json({videos})
 	    //console.log(app.get('title'));
 	    return res.render('liste', {
 	        title: _app.get('title'),

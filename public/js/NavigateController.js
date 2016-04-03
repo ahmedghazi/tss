@@ -5,7 +5,11 @@ var timer;
 (function($) {
     $.fn.insertPageHtml = function(options) {
         //the option is an array : {html:the ajax html, scripts: the scripts that already are in the html, customData:any data you associated to this state during navigate} 
-//console.log(options)
+
+if(window.location.href.indexOf("sort") != -1){
+    feedUrl.push(window.location.href)
+}
+console.log(feedUrl)
         $(".modal_close").click();
         $(".morphsearch-close").click();
         

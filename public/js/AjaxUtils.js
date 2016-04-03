@@ -17,8 +17,11 @@ var AjaxUtils = function(){
 			$(".article_content .ost").html("");
 			$article = $(this).parents("article");
 			$("article").removeClass('open');
-
-			var st = $(this).parents("article").position().top - 68;
+console.log($("header").height())
+			var header_h = 53;
+			if(isTouchDevice)header_h = 34;
+			l(header_h)
+			var st = $(this).parents("article").position().top - header_h;
 
 			$article.addClass('open');
 
@@ -70,7 +73,13 @@ var AjaxUtils = function(){
 			event.preventDefault();
 			var path = window.location.pathname
 			if(path == '/')path = '/page';
-			if(path.indexOf("video") != -1)path = '/page';
+			if(path.indexOf("video") != -1){
+				//path = '/page';
+				path = feedUrl[feedUrl.length - 1];
+				history.pushState({feedUrl}, SITE_NAME, path);
+				//path = window.location.pathname
+				
+			}
 
 			var st = $(this).parent().offset().top;
 			$("body").addClass("loading");
@@ -78,10 +87,13 @@ var AjaxUtils = function(){
 			var page = $("#page").val();
 				page++;
 			$("#page").val(page);
+
+			var u = path+'/'+page;
 			
+
 			$.ajax({
 				type: "GET",
-				url: path+'/'+page
+				url: u
 			})
 				.done(function( html ) {
 					//console.log(html);
