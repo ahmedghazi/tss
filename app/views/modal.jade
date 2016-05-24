@@ -1,30 +1,48 @@
-div#modal.modal
-	div.modal_inner
-		div.modal_close.close
-		div.modal_header
-			h3.sh_title
-		div.modal_content
-			div.sh.row
-				h3.sh_title Share
-				input(type='hidden' value='1' id='id_article')
-				ul
-					li
-						a(href='#' id='fb')
-							i.fa.fa-facebook
-					li
-						a(href='#' id='tw')
-							i.fa.fa-twitter
-					li
-						a(href='#' id='mail')
-							i.fa.fa-envelope
-			div.clear
-			div.embed.row
-				h3.sh_title Embed
-				textarea(name='embedcode')
+div#modal.modal.msh
+    div.modal_inner
+        div.modal_close.close
+        div.modal_header
+            h3.sh_title
 
+        div.modal_content
+            div.sh.row
+                h3.sh_title Share
+                .sepWhite
+                .sep20
+                input(type='hidden' value='1' id='id_article')
+                ul
+                    li
+                        a(href='#' id='fb')
+                            i.fa.fa-facebook
+                    li
+                        a(href='#' id='tw')
+                            i.fa.fa-twitter
+                    li
+                        a(href='#' id='mail')
+                            i.fa.fa-envelope
+            div.clear
+            div.embed.row
+                h3.sh_title Embed
+                .sepWhite
+                .sep20
+                textarea(name='embedcode')
+
+div#modal2.modal
+    div.modal_inner
+        div.modal_close.close
+        div.modal_header
+            
+        div.modal_content
+            div#search
+    
+                form(method='post' id='' action='' class='search-form ')
+                    input(name='s' class='search-input ' placeholder='Search...' autocomplete='off')
+
+                div.search-content.liste
+                span.search-close.close
+                
 div#iframe.modal
-	div.modal_inner
-		div.modal_close.close
-		div.modal_content
-			
-				
+    div.modal_inner
+        div.modal_close.close
+        div.modal_content
+            

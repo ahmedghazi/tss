@@ -179,7 +179,8 @@ var YoutubePlayer = function(){
 
 	this.loadVideoById = function(_id){
 		//player.stopVideo();
-		$("#player").removeClass('offside_bottom')
+		$("#player").removeClass('offside_bottom');
+		console.log(_id)
 		player.loadVideoById(_id);
 	};
 	

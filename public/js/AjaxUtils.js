@@ -19,8 +19,8 @@ var AjaxUtils = function(){
 			$("article").removeClass('open');
 console.log($("header").height())
 			var header_h = 53;
-			if(isTouchDevice)header_h = 34;
-			l(header_h)
+			if(isTouchDevice)header_h = 35;
+			l("header_h = "+header_h)
 			var st = $(this).parents("article").position().top - header_h;
 
 			$article.addClass('open');
@@ -109,6 +109,11 @@ console.log($("header").height())
 				});
 		});
 
+		$("#s_btn").on('click', function(event) {
+			$(".morphsearch-content").html("")
+			$("#modal2").show();
+		});
+/*
 		$(".morphsearch-submit").on('click', function(event) {
 			event.preventDefault();
 		
@@ -122,8 +127,8 @@ console.log($("header").height())
 				$(".morphsearch-content").html("")
 			},1000);
 		});
-
-		$( "input.morphsearch-input" ).keyup(function() {
+*/
+		$( "input.search-input" ).keyup(function() {
 			var val = $(this).val();
 			if(val.length > 3){
 				$.ajax({
@@ -131,14 +136,15 @@ console.log($("header").height())
 				  url: '/api/search/'+val
 				})
 					.done(function( data ) {
-						$(".morphsearch-content").html(data)
+						$(".search-content").html(data)
 				  	});
+			}else{
+				$(".search-content").html("");
 			}
 			
 		});
 
 		$("html").on("click", ".share", function(){
-
 			var url = window.location.href;
 			var title = document.title;
 			console.log(title)
@@ -209,7 +215,7 @@ console.log($("header").height())
 
 	this.postData = function(u,d){
 		//console.log(u,d)
-		console.log(arguments.callee.caller.toString())
+		//console.log(arguments.callee.caller.toString())
 		$.ajax({
 			//method: "POST",
 			url: u, 
