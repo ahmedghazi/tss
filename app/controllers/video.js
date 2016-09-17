@@ -17,15 +17,19 @@ module.exports = function (app) {
 };
 
 router.get('/:id', function (req, res, next) {
+    console.log(">>>>>>>>>>>here")
     var metas = '';
     return Video
         .findById(req.params.id)
-        .populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
+        //.populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
+        .populate({path: 'ost', options: { sort: {'_id': 'asc'} }})
+        //.populate({path: 'ost', options: { sort: {'created_at': 1} }})
+        //.populate({path: 'ost'})
         .exec(function(err, video) {
             if (err) {
                 return next(err);
             }
-            console.log(video);
+            //console.log(video);
             if(video.ost.length == 0){
                 //res.redirect("/api/u/"+req.params.id);
                 sniffer(video.url, function (data) {
@@ -105,7 +109,7 @@ router.get('/:id', function (req, res, next) {
                     //console.log(item.rider)
                     if(item.rider)metas += item.rider+", ";
                 });
-                console.log(metas)
+                //console.log(metas)
                 return res.render('video', {
                     title: _app.get('title'),
                     description: _app.get('description')+", "+metas,
