@@ -480,6 +480,10 @@ a.more:hover{
   margin: 0;
   border: none;
 }
+.modal .search-content{
+  height: calc(100vh - 67px);
+  overflow-y: auto;
+}
 .modal .search-content article:hover{
   color: blue;
   background-color: white;
