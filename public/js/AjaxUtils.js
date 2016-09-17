@@ -17,7 +17,7 @@ var AjaxUtils = function(){
 			$(".article_content .ost").html("");
 			$article = $(this).parents("article");
 			$("article").removeClass('open');
-console.log($("header").height())
+//console.log($("header").height())
 			var header_h = 53;
 			if(isTouchDevice)header_h = 35;
 			l("header_h = "+header_h)
@@ -112,6 +112,9 @@ console.log($("header").height())
 		$("#s_btn").on('click', function(event) {
 			$(".morphsearch-content").html("")
 			$("#modal2").show();
+			setTimeout(function(){
+				$("input[name='s']").focus();
+			}, 400)
 		});
 /*
 		$(".morphsearch-submit").on('click', function(event) {

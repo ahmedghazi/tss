@@ -29,6 +29,7 @@ var TrackSchema = new Schema({
         index: true,
         type: String
     },
+    parents: [{type: Schema.Types.ObjectId, ref: 'Video'}],
   	
 });
 

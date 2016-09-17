@@ -22,8 +22,6 @@ module.exports = function (app) {
 
     youTube = new Youtube();
     youTube.setKey('AIzaSyBMcFRVdw_jipl7LMlnP-87PpOet7uNN8c');
-
-
 };
 
 router.get('/all', function (req, res, next) {
@@ -307,7 +305,7 @@ router.get('/s/:id', function (req, res, next) {
 router.get('/search/:term', function (req, res, next) {
     
     return Video
-        .find( { title : { $regex: req.params.term, $options: 'i' }})
+        .find( { title : { $regex: req.params.term, $options: 'i' }} )
         .sort({year: 'desc'})
         .populate('ost')
         .exec(function(err, videos) {
@@ -315,10 +313,34 @@ router.get('/search/:term', function (req, res, next) {
                 return next(err);
             }
 
+            return Track.find(
+                { $or: [
+                    { artist: { $regex: req.params.term, $options: 'i' } },
+                    { track: { $regex: req.params.term, $options: 'i' } },
+                    ] 
+                } )
+                //.find( { artist : { $regex: req.params.term, $options: 'i' }} )
+                .populate('parents')
+                .exec(function(_err, tracks) {
+                    if (_err) {
+                        return next(_err);
+                    }
+                    console.log(tracks)
+                    //return res.send(tracks);
+                    var result = Array();
+                    result.push.apply(result, videos)
+                    for(var i in tracks){
+                        result.push()
+                        result.push.apply(result, tracks[i].parents)
+                    }
+                    //return res.send(result);
+                    return res.render('autocomplete-item', {
+                        videos: result
+                    });
+                });
+
             //res.send(videos);
-            return res.render('autocomplete-item', {
-                videos: videos
-            });
+            
         });
     
 
@@ -582,7 +604,61 @@ router.get('/analytics', function (req, res, next) {
     }
 });
 
-
+router.get('/link', function (req, res, next) {
+    return Video
+            .find()
+            .sort({year: 'desc'})
+            //.limit(10)
+            .exec(function(err, videos) {
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
+                //console.log(app.get('title'));
+                //return res.send(videos);
+                //for(var i in videos)
+                async.each(videos,
+                    // 2nd param is the function that each item is passed to
+                    function(video, callback){
+                        
+                        if(video.ost){
+                            async.each(video.ost,
+                                function(track, callback2){
+                                    console.log(video.title, track)
+                                    Track.update(
+                                        { _id: track },
+                                        { $addToSet: {parents: video._id } },
+                                        function(_err, results) {
+                                            if (!_err) {
+                                                console.log(results)   
+                                            }
+                                            callback2();
+                                        }
+                                    )
+                                    
+                                },
+                                function(err){
+                                    // All tasks are done now
+                                    console.log("ost done !")
+                                    //return res.send(videos);
+                                    callback();
+                                }
+                            );
+                        }else{
+                            callback();
+                        }
+                    
+                    },
+                    // 3rd param is the function to call when everything's done
+                    function(err){
+                        // All tasks are done now
+                        console.log("all done !")
+                        return res.send(videos);
+                    }
+                );
+    });
+    
+});
 
 
 
