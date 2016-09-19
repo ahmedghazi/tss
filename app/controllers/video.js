@@ -17,7 +17,7 @@ module.exports = function (app) {
 };
 
 router.get('/:id', function (req, res, next) {
-    console.log(">>>>>>>>>>>here")
+    //console.log(">>>>>>>>>>>here")
     var metas = '';
     return Video
         .findById(req.params.id)

@@ -2,6 +2,7 @@ var express = require('express'),
 	router = express.Router(),
 	mongoose = require('mongoose'),
 	Video = mongoose.model('Video'),
+	Track = mongoose.model('Track'),
 	_app,
 	postsPerPage = 40;
 
@@ -191,6 +192,33 @@ router.get('/sort/view/:id/:page', function (req, res, next) {
 	});
 });
 
+router.get('/archive/:term', function (req, res, next) {
+    return Track.find(
+        { $or: [
+            { artist: { $regex: req.params.term, $options: 'i' } },
+            { track: { $regex: req.params.term, $options: 'i' } },
+        ] } 
+        )
+        //.find( { artist : { $regex: req.params.term, $options: 'i' }} )
+        .populate('parents')
+        .exec(function(_err, tracks) {
+            if (_err) {
+                return next(_err);
+            }
+            console.log(tracks)
+            //return res.send(tracks);
+            
+            //return res.send(tracks);
+            return res.render('liste-archive', {
+    	        title: _app.get('title'),
+    	        description: _app.get('description'),
+    	        url: req.getUrl(),
+    	        bodyclass: 'archive',
+    	        term: req.params.term,
+    	        results: tracks
+    	    });
+        });
+});
 
 
 router.get('/legal', function (req, res, next) {

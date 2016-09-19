@@ -1,0 +1,59 @@
+extends layout
+block title
+    title= '▶ '+title+' - ARCHIVE '+term
+
+block metaog
+    meta(property='og:title' content='▶ #{title} - ARCHIVE #{term}')
+    meta(property='og:site_name' content='#{title}')
+    meta(property='og:description' content='#{description}')
+    meta(property='og:url' content='#{url}')
+    meta(property='og:image' content='http://theskateboardsoundtracks.com/img/tsbst-logo-fb.jpg')
+    meta(property='og:type' content='article')
+
+prepend content
+    
+    section
+        article(id='#{term}').video.open
+            div.article_inner
+                div.row.article_header
+                    div.fiboA.title
+                        h2 #{term} (#{results.length})
+                    div.fiboB
+                        div.span3 
+                        div.span3 
+                        div.span3
+                            div.share
+                                span Share  
+                                i.fa.fa-share
+
+                div.article_content
+                    div.ost_header.row
+                        div.fiboA.player_ost
+                            
+                        div.fiboB
+                            div.span3 PART
+                            div.span3 ARTIST
+                            div.span3 TRACK
+                    each track in results
+                        include track-archive
+
+                div.article_disqus
+                    div.fiboA
+                    div.fiboB
+                        div#disqus_thread
+                        script.
+                            var disqus_config = function () { this.page.url = '#{url}'; this.page.identifier = '#{term}'; }; (function() { var d = document, s = d.createElement('script'); s.src = '//theskateboardsoundtracks.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+                            var disqusReset = function (newIdentifier, newUrl, newTitle, newLanguage) { DISQUS.reset({ reload: true, config: function () { this.page.identifier = newIdentifier; this.page.url = newUrl; this.page.title = newTitle; } }); };
+
+                div.article_footer.row
+                    div.fiboA
+                    div.fiboB
+                            
+                        div.span3
+                            i
+                        div.span3
+                            
+                        div.span3
+                            div.share
+                                span Share  
+                                i.fa.fa-share

@@ -319,8 +319,8 @@ router.get('/search/:term', function (req, res, next) {
                 { $or: [
                     { artist: { $regex: req.params.term, $options: 'i' } },
                     { track: { $regex: req.params.term, $options: 'i' } },
-                    ] 
-                } )
+                ] } 
+                )
                 //.find( { artist : { $regex: req.params.term, $options: 'i' }} )
                 .populate('parents')
                 .exec(function(_err, tracks) {
@@ -344,9 +344,6 @@ router.get('/search/:term', function (req, res, next) {
             //res.send(videos);
             
         });
-    
-
-
 });
 
 
