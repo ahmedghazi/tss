@@ -288,6 +288,10 @@ a.more:hover{
 /*------------------------------------*\
     PLAYER
 \*------------------------------------*/
+#player .fiboA,
+#player .fiboB{
+  vertical-align: middle;
+}
 #player .controls span.play{display: none;}
 #player.state_pause .controls span.pause{display: none;}
 #player.state_pause .controls span.playing{display: none;}
@@ -298,6 +302,11 @@ a.more:hover{
 .ttp.currentItemPlaying .controls:hover span.playing{display: none;}
 .ttp.currentItemPlaying .controls:hover span.pause{display: inline-block;}
 
+#player .controls span.play,
+#player .controls span.pause{
+  font-size: 2em;
+  vertical-align: middle;
+}
 
 #ph{display: none;}
 
