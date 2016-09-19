@@ -673,7 +673,8 @@ input[type="search"] { /* reset normalize */
   background-color: blue;
   color: white;
 }
-.archive .row:hover a{color: white!important;}
+.archive .row:hover a,
+.archive .row.currentItemPlaying a{color: white!important;}
 
 
 @media all and (orientation:portrait) {
