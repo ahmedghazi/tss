@@ -29,7 +29,12 @@ router.get('/:id', function (req, res, next) {
             if (err) {
                 return next(err);
             }
+
+            try{
+
+
             //console.log(video);
+  
             if(video.ost.length == 0){
                 //res.redirect("/api/u/"+req.params.id);
                 sniffer(video.url, function (data) {
@@ -103,6 +108,7 @@ router.get('/:id', function (req, res, next) {
                     }
                 });
 
+        
             }else{
                 //console.log(video.ost)
                 forEach(video.ost, function(item, index, arr) {
@@ -118,7 +124,10 @@ router.get('/:id', function (req, res, next) {
                     video: video,
                 }); 
             }
-             
+            
+            } catch(e) {
+
+            }
             
     });
 });
