@@ -24,6 +24,8 @@ var VideoSchema = new Schema({
     type: String, 
     default: "published"
   }
+},{
+    timestamps: true
 });
 
 VideoSchema.virtual('date')

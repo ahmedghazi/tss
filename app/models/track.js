@@ -8,6 +8,7 @@ var TrackSchema = new Schema({
         index: true,
         type: Date, default: Date.now
     },
+    order: Number,
   	rider: {
         index: true,
         type: String
@@ -31,6 +32,8 @@ var TrackSchema = new Schema({
     },
     parents: [{type: Schema.Types.ObjectId, ref: 'Video'}],
   	
+},{
+    timestamps: true
 });
 
 

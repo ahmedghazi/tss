@@ -17,6 +17,8 @@ var UserSchema = new Schema({
         index: true,
         type: String
     }
+},{
+    timestamps: true
 });
 
 

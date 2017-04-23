@@ -6,4 +6,5 @@ div.ost_header.row
         div.span3 ARTIST
         div.span3 TRACK
 each track in video.ost
-    include track
+    if track.artist.indexOf("©Skatevideosite.com") == -1
+        include track

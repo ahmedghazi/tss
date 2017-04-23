@@ -27,6 +27,11 @@ module.exports = function (app) {
 router.get('/all', function (req, res, next) {
     return Video
             .find()
+            .limit(10)
+            .populate({
+                path: 'ost',
+                options: { sort: {'order': 'asc'} }
+            })
             .sort({year: 'desc'})
             //.limit(10)
             .exec(function(err, videos) {
@@ -158,10 +163,29 @@ console.log(options)
                 ress.on("end", function() {
                     //console.log(response_text)
                     $ = cheerio.load(response_text);
-                    var len = $("#soundtracklist").find("tr").length;
-                    console.log(len)
-                    if(len > 0){
-                        $("#soundtracklist").find("tr").each(function(idx, tr) {
+                    $table = null;
+                    $("h2").each(function(idx, el){
+                        //console.log($(el).text())
+                        if($(el).text() == "Soundtrack")
+                            $table = $(el).siblings("table");
+                    });
+                    //console.log("$table",$table)
+
+                    
+                    
+                    if($table){
+                        var len = $table.find("tr").length;
+                        console.log("len",len)
+                        var counter = 0;
+
+                        $table.find("tr").each(function(idx, tr) {
+
+
+
+                    //var len = $("#soundtracklist").find("tr").length;
+                    //console.log(len)
+                    //if(len > 0){
+                    //    $("#soundtracklist").find("tr").each(function(idx, tr) {
                             $(tr).find("td").each(function(_idx, td) {
                       
                                 var nfo = $(td).text().split(" - ")
@@ -177,6 +201,7 @@ console.log(options)
                                 }
 
                                 var track = new Track({
+                                    order: counter,
                                     rider: _rider,
                                     artist: _artist,
                                     track: _track
@@ -232,7 +257,8 @@ router.get('/g/:id', function (req, res, next) {
     return Video
         .findById(req.params.id)
         //.populate('ost')
-        .populate({path: 'ost', options: { sort: {'_id': 'asc'} }})
+        //.populate({path: 'ost', options: { sort: {'_id': 'asc'} }})
+        .populate({path: 'ost'})
         //.populate({path: 'ost', options: { sort: {'created_at': -1} }})
         .exec(function(err, video) {
             if (err) {
@@ -361,6 +387,27 @@ router.get('/empty', function (req, res, next) {
         return res.send(videos);
     });
     
+});
+
+router.get('/empty-ost', function (req, res, next) {
+    //Video.updateMany({}, {$set:{ost:[]}})
+    Video.update({
+        //ost: { $exists: true, $size: 0 }
+        }, {
+            $set: {
+                ost: []
+            }
+        }, {
+            multi: true
+        },
+        function(err, result) {
+            console.log(result);
+            console.log(err);
+            return res.json(result)
+        })  
+    
+    
+
 });
 
 router.get('/drop', function (req, res, next) {
@@ -605,56 +652,56 @@ router.get('/analytics', function (req, res, next) {
 
 router.get('/link', function (req, res, next) {
     return Video
-            .find()
-            .sort({year: 'desc'})
-            //.limit(10)
-            .exec(function(err, videos) {
-                if (err) {
-                    console.log(err);
-                    return next(err);
-                }
-                //console.log(app.get('title'));
-                //return res.send(videos);
-                //for(var i in videos)
-                async.each(videos,
-                    // 2nd param is the function that each item is passed to
-                    function(video, callback){
-                        
-                        if(video.ost){
-                            async.each(video.ost,
-                                function(track, callback2){
-                                    console.log(video.title, track)
-                                    Track.update(
-                                        { _id: track },
-                                        { $addToSet: {parents: video._id } },
-                                        function(_err, results) {
-                                            if (!_err) {
-                                                console.log(results)   
-                                            }
-                                            callback2();
-                                        }
-                                    )
-                                    
-                                },
-                                function(err){
-                                    // All tasks are done now
-                                    console.log("ost done !")
-                                    //return res.send(videos);
-                                    callback();
-                                }
-                            );
-                        }else{
-                            callback();
-                        }
+        .find()
+        .sort({year: 'desc'})
+        //.limit(10)
+        .exec(function(err, videos) {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            //console.log(app.get('title'));
+            //return res.send(videos);
+            //for(var i in videos)
+            async.each(videos,
+                // 2nd param is the function that each item is passed to
+                function(video, callback){
                     
-                    },
-                    // 3rd param is the function to call when everything's done
-                    function(err){
-                        // All tasks are done now
-                        console.log("all done !")
-                        return res.send(videos);
+                    if(video.ost){
+                        async.each(video.ost,
+                            function(track, callback2){
+                                console.log(video.title, track)
+                                Track.update(
+                                    { _id: track },
+                                    { $addToSet: {parents: video._id } },
+                                    function(_err, results) {
+                                        if (!_err) {
+                                            console.log(results)   
+                                        }
+                                        callback2();
+                                    }
+                                )
+                                
+                            },
+                            function(err){
+                                // All tasks are done now
+                                console.log("ost done !")
+                                //return res.send(videos);
+                                callback();
+                            }
+                        );
+                    }else{
+                        callback();
                     }
-                );
+                
+                },
+                // 3rd param is the function to call when everything's done
+                function(err){
+                    // All tasks are done now
+                    console.log("all done !")
+                    return res.send(videos);
+                }
+            );
     });
     
 });
@@ -664,7 +711,99 @@ router.get('/link', function (req, res, next) {
 
 
 
+router.get('/t/:id', function (req, res, next) {
 
+    console.log("t")
+    return Video
+        .findById(req.params.id)
+        .exec(function(err, video) {
+            if (err) {
+                return next(err);
+            }
+//console.log(video)
+            var ost = [];
+            var response_text = "";
+            var options = {
+                    host: 'www.skatevideosite.com'
+                  , port: 80
+                  , path: video.url
+                  , method: 'GET'
+                };
+//console.log(options)
+            var request = http.get(options, function(ress){
+                //console.log(ress)
+                if(ress.statusCode != 200) {
+                   throw "Error: " + ress.statusCode; 
+                };
+             
+                ress.setEncoding("utf8");
+                ress.on("data", function (chunk) {
+                    response_text += chunk;
+                });
+                ress.on("end", function() {
+                    //console.log(response_text)
+                    $ = cheerio.load(response_text);
+                    $table = null;
+                    $("h2").each(function(idx, el){
+                        //console.log($(el).text())
+                        if($(el).text() == "Soundtrack")
+                            $table = $(el).siblings("table");
+                    });
+                   
+                    if($table){
+                        var len = $table.find("tr").length;
+                        console.log("len",len)
+                        var counter = 0;
+var arr = []
+                        var c = 0;
+                        $table.find("tr").each(function(idx, tr) {
+                            
+                            $(tr).find("td").each(function(_idx, td) {
+                      
+                                var nfo = $(td).text().split(" - ")
+                                var _rider,_artist,_track;
+                                if(nfo.length == 3){
+                                    _rider = nfo[0];
+                                    _artist = nfo[1];
+                                    _track = nfo[2];
+                                }else{
+                                    _rider = "";
+                                    _artist = nfo[0];
+                                    _track = nfo[1];
+                                }
+
+                                var track = new Track({
+                                    order: c,
+                                    rider: _rider,
+                                    artist: _artist,
+                                    track: _track
+                                });
+
+                                c++;
+                                arr.push(track)
+                        
+                                
+
+
+                            });
+                        });// LOOP
+                        //res.send(video)
+                        return res.json(arr);
+                    }else{
+                        console.log("else")
+                        return res.send(video);
+                        /*return res.render('no-soundtrack', {
+                            title: _app.get('title'),
+                            description: _app.get('description'),
+                            url: req.getUrl(),
+                            video: video
+                        });*/
+                    }
+                })// END
+            })
+    });
+    
+});
 
 
 

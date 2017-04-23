@@ -22,14 +22,18 @@ router.get('/:id', function (req, res, next) {
     return Video
         .findById(req.params.id)
         //.populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
-        .populate({path: 'ost', options: { sort: {'_id': 'asc'} }})
+        .populate({
+            path: 'ost',
+            options: { sort: {'order': 'asc'} }
+        })
+            //options: { sort: {'createdAt': 'desc'} }})
         //.populate({path: 'ost', options: { sort: {'created_at': 1} }})
         //.populate({path: 'ost'})
         .exec(function(err, video) {
             if (err) {
                 return next(err);
             }
-
+//console.log(video.ost)
             try{
 
 
@@ -39,7 +43,7 @@ router.get('/:id', function (req, res, next) {
                 //res.redirect("/api/u/"+req.params.id);
                 sniffer(video.url, function (data) {
                     //console.log("cb");
-                    //console.log(data.success);
+                    //console.log(data.ost);
                     if(data.success == true){
                         var videoIframe = data.videoIframe;
                         var len = data.ost.length;
@@ -52,14 +56,15 @@ router.get('/:id', function (req, res, next) {
                                 rider: item[0],
                                 artist: item[1],
                                 track: item[2],
-                                videoId: item[3]
+                                videoId: item[3],
+                                order: item[4]
                             });
                             if(item[0])metas += item[0]+", ";
                             //console.log(track)
 
                             track.save(function (err) {
                                 if (!err) {
-                                    console.log(count,len)
+                                    //console.log(count,len)
                                     ost.push(track._id);
                                     if(count == len-1){
                                         //console.log(ost)
@@ -73,12 +78,12 @@ router.get('/:id', function (req, res, next) {
                                                 return Video
                                                     .findById(req.params.id)
 //                                                    .populate('ost')
-                                                    .populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
+                                                    .populate({path: 'ost', options: { sort: {'order': 'asc'} }})
                                                     .exec(function(err, video) {
                                                         if (err) {
                                                             return next(err);
                                                         }
-                                                        console.log(video)
+                                                        //console.log(video)
                                                         return res.render('video', {
                                                             title: _app.get('title'),
                                                             description: _app.get('description')+", "+metas,
@@ -115,6 +120,7 @@ router.get('/:id', function (req, res, next) {
                     //console.log(item.rider)
                     if(item.rider)metas += item.rider+", ";
                 });
+                //video.ost.reverse();
                 //console.log(metas)
                 return res.render('video', {
                     title: _app.get('title'),
