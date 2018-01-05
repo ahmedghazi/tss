@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
 	    return res.render('home', {
 	        title: _app.get('title'),
 	        description: _app.get('description'),
-	        url: req.getUrl(),
+	        canonical: _app.get('canonical'),
 	        bodyclass: 'home',
 	        videos: videos
 	    });

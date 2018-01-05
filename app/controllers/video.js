@@ -104,6 +104,7 @@ router.get('/:id', function (req, res, next) {
                     }else{
 
                         return res.render('video', {
+                            canonical: _app.get('canonical'),
                             title: _app.get('title'),
                             description: _app.get('description'),
                             url: req.getUrl(),
@@ -123,6 +124,7 @@ router.get('/:id', function (req, res, next) {
                 //video.ost.reverse();
                 //console.log(metas)
                 return res.render('video', {
+                    canonical: _app.get('canonical'),
                     title: _app.get('title'),
                     description: _app.get('description')+", "+metas,
                     url: req.getUrl(),

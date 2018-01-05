@@ -22,10 +22,12 @@ var app = express();
 app.set('title', 'THE SKATEBOARD SOUNDTRACKS');
 app.set('description', 'A PLACE FOR MUSIC ON WHEELS');
 app.set('root', config.root);
+app.set('canonical', "http://theskateboardsoundtracks.com");
 
 
 app.use(function(req, res, next) {
 	req.getUrl = function() {
+    console.log(req.protocol, req.get('host'))
 	  return req.protocol + "://" + req.get('host') + req.originalUrl;
 	}
 	return next();
