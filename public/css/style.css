@@ -118,8 +118,8 @@ body.loading #loader{display: block;}
             transform: translate3d(0,54px,0);   /* Firefox 16+, IE 10+, Opera */
 }
 
-.sepBlue{height: 3px; background-color: blue;}
-.sepWhite{height: 3px; background-color: white;}
+.sepBlue{height: 2px; background-color: blue;}
+.sepWhite{height: 2px; background-color: white;}
 .sep10{height: 10px;}
 .sep20{height: 20px;}
 
