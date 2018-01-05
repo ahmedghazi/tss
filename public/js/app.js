@@ -138,9 +138,13 @@ function bindEvents(){
 	$("html").on("click", "a[rel='iframe']", function(e){
 		e.preventDefault();
 		var url = $(this).attr("href");
-		var iframe = '<iframe width="100%" height="100%" src="'+url+'" frameborder="0" allowfullscreen></iframe>';
+		var iframe = '<iframe width="560" height="315" src="'+url+'?autoplay=1" frameborder="0" allowfullscreen></iframe>';
 		$("#iframe").find(".modal_content").html(iframe);
 		$("#iframe").show();
+	});
+
+	$(document).keyup(function(e) {
+	  	if (e.keyCode === 27) $('.modal_close').click();   // esc
 	});
 
 }

@@ -503,7 +503,15 @@ a.more:hover{
 
 #iframe{padding-top: 0;}
 #iframe .modal_inner,
-#iframe .modal_content{height: 100%; }
+#iframe .modal_content{
+  display: flex;
+  height: 100%;   width: 100%;
+}
+#iframe iframe{
+  margin: auto;
+  width:70vw!important;
+  height: calc(70vw / 1.77)!important;
+}
 /*------------------------------------*\
     SEARCH
 \*------------------------------------*/
