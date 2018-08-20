@@ -99,7 +99,8 @@ var YoutubePlayer = function(){
 				showinfo	:'0',
 				modestbranding:'0',
 				iv_load_policy:'3',
-				cc_load_policy:'0'
+				cc_load_policy:'0',
+				playsinline: 1
           	}
         });
 		
