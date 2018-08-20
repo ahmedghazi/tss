@@ -4,7 +4,7 @@ var express = require('express'),
 	Video = mongoose.model('Video'),
 	Track = mongoose.model('Track'),
 	_app,
-	postsPerPage = 40;
+	postsPerPage = 60;
 
 module.exports = function (app) {
 	_app = app;
@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 
 	return Video
 			.find()
-			.sort({year: 'desc'})
+			.sort({title: 'asc'})
 			.limit(postsPerPage)
 			.exec(function(err, videos) {
 	    if (err) {
@@ -38,7 +38,7 @@ router.get('/page/:id', function (req, res, next) {
 	var skip = parseInt(req.params.id * postsPerPage);
 	return Video
 			.find()
-			.sort({year: 'desc'})
+			.sort({title: 'asc'})
 			.limit(postsPerPage)
 			.skip(skip)
 			.exec(function(err, videos) {

@@ -95,22 +95,32 @@ function bindEvents(){
 	});
 
 	$("html").on("click", ".ttp", function(e){
-
+		$("body").addClass("loading");
 		$(".ttp")
 			.removeClass('currentItemPlaying')
 			.removeClass('pause');
 			
 		var id = $(this).attr('id');
-		var videoid = $(this).data('videoid');
+		currentItemPlaying = "#"+id;
+
 		var artist = $(this).find('.track_artist').text();
 		var track = $(this).find('.track_title').text();
-
-		$("body").addClass("loading");
-		currentItemPlaying = "#"+id;
-		_YoutubePlayer.currentItem(currentItemPlaying);
-		_YoutubePlayer.loadVideoById(videoid);
-		_YoutubePlayer.updateTitle(artist+" - "+track);
-
+		var videoId = $(this).data('videoid');
+		
+		if(videoId == 'undefined'){
+			au.postData('/api/s/'+id, {}, function (response) {
+				//console.log(response)
+				videoId = response.videoId
+				_YoutubePlayer.currentItem(currentItemPlaying);
+				_YoutubePlayer.loadVideoById(videoId);
+				_YoutubePlayer.updateTitle(artist+" - "+track);
+			})
+		}else{
+			_YoutubePlayer.currentItem(currentItemPlaying);
+			_YoutubePlayer.loadVideoById(videoId);
+			_YoutubePlayer.updateTitle(artist+" - "+track);
+		}
+		
 		//document.title = "▶ "+track+" - "+SITE_NAME;
 		
 	});

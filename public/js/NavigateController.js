@@ -35,7 +35,9 @@ console.log(feedUrl)
                   disqusReset(id, url, title, '');
                 }
                 console.log("change url")
-                au.postData("/api/view-count/"+id, {url:url});
+                au.postData("/api/view-count/"+id, {url:url}, function (response) { 
+                    //console.log(response)
+                });
                 track(url)
             }
         },400);

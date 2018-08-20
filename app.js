@@ -29,6 +29,10 @@ app.use(function(req, res, next) {
 	req.getUrl = function() {
     console.log(req.protocol, req.get('host'))
 	  return req.protocol + "://" + req.get('host') + req.originalUrl;
+  }
+  req.getBaseUrl = function() {
+    //console.log(req.protocol, req.get('host'))
+	  return req.protocol + "://" + req.get('host');
 	}
 	return next();
 });

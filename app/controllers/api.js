@@ -1,7 +1,8 @@
 var express = require('express'),
 	router = express.Router(),
 	mongoose = require('mongoose'),
-	http = require('http'),
+    http = require('http'),
+    request = require('request'),
 	cheerio = require('cheerio'),
     Youtube = require('youtube-node'),
     forEach = require('async-foreach').forEach,
@@ -10,6 +11,7 @@ var express = require('express'),
     //AIzaSyBMcFRVdw_jipl7LMlnP-87PpOet7uNN8c
     Track = mongoose.model('Track'),
     nodemailer = require("nodemailer"),
+    helpers = require('./lib/helpers'),
     _app;
 
 var fs = require('fs');
@@ -26,26 +28,135 @@ module.exports = function (app) {
 
 router.get('/all', function (req, res, next) {
     return Video
-            .find()
-            .limit(10)
-            .populate({
-                path: 'ost',
-                options: { sort: {'order': 'asc'} }
-            })
-            .sort({year: 'desc'})
-            //.limit(10)
-            .exec(function(err, videos) {
-        if (err) {
-            console.log(err);
-            return next(err);
-        }
-        //console.log(app.get('title'));
-        return res.send(videos);
+        .find({"year": {$lt: new Date(1970, 1, 1)} })
+        //.limit(10)
+        // .populate({
+        //     path: 'ost',
+        //     options: { sort: {'order': 'asc'} }
+        // })
+        .sort({year: 'desc'})
+        //.limit(10)
+        .exec(function(err, videos) {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            //console.log(app.get('title'));
+            return res.send(videos);
     });
-    
 });
 
-    
+router.get('/year', function (req, res, next) {
+    //console.log(new Date(1970, 1, 1))    
+    let interval = 6000
+    return Video
+        .find(
+            {"year": {$lt: new Date(1972, 1, 1)} }
+        )
+        //.limit(5)
+        .exec(function(err, videos) {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+
+            async.eachLimit(videos, 1,
+                function(video, callback){
+                    setTimeout(function(){   
+                        helpers.processDateVideo(video, function(_video){
+                            console.log(_video.title+" - "+_video.year)
+                            console.log("======================================================")
+                            
+                            callback()
+                        })
+// console.log(video.title, video.year)
+// console.log("======================================================")
+
+// callback()
+                    }, interval)
+                },
+                
+                function(err){
+                    return res.send("all ok")
+                }
+            );
+            
+            
+    });
+});
+
+router.get('/test', function (req, res, next) {
+    let videoUrl = 'http://skately.com/library/soundtracks/birdhouse-skateboards-the-end'
+    helpers.processInsertVideo(videoUrl, function(video){
+        //console.log(video)
+        console.log("======================================================")
+        return res.send("all ok")
+    })
+});
+
+router.get('/pull', function (req, res, next) {
+    let interval = 6000
+    let loopCounter = 0
+    let url = req.getBaseUrl()+'/files/skately.json'
+    //console.log(url)
+    urlGet(url, true, function (response) {
+        
+        async.eachLimit(response.body.urls, 1,
+            function(videoUrl, callback){
+                if(loopCounter > 216){
+                    setTimeout(function(){
+                        
+                        helpers.processInsertVideo(videoUrl, function(video){
+                            console.log(loopCounter, video.title)
+                            console.log("======================================================")
+                            loopCounter++
+                            callback()
+                        })
+                        // console.log(loopCounter, videoUrl)
+                        // console.log("======================================================")
+                        // loopCounter++
+                        // callback()
+                    }, interval)
+                }else{
+                    loopCounter++
+                    callback()
+                }
+                
+            },
+            
+            function(err){
+                return res.send("all ok")
+            }
+        );
+    })
+})
+
+function urlGet(url, json, cb){
+	var j = request.jar()
+	var options = { 
+	    method: 'GET',
+	    url: url,
+	    json: json,
+	    jar: j,
+	    timeout: 10000,
+	    followRedirect: true,
+	    maxRedirects: 10000,
+	    headers: 
+	    { 
+	        'cache-control': 'no-cache'
+	    }
+	};
+	
+	request(options, function (error, response, body) {
+	    if (error) throw new Error(error);
+
+	    console.log("statusCode",response.statusCode);
+	    return cb({success:true, body:body});
+	    
+	}).setMaxListeners(0);
+}
+
+
 router.get('/insert/:id', function (req, res, next) {
 	
     console.log("api",req.params.id)

@@ -48,9 +48,11 @@ var AjaxUtils = function(){
 
 						$("html,body").animate({
 							scrollTop: st
-						}, 1000, function(){
+						}, 600, function(){
 							
-							au.postData("/api/view-count/"+id, {url:url});
+							au.postData("/api/view-count/"+id, {url:url}, function (response) { 
+								//console.log(response)
+							});
 							track(url)
 						});
 						
@@ -68,28 +70,32 @@ var AjaxUtils = function(){
 		});
 
 		//test
-
+console.log(feedUrl)
 		$("html").on('click', '.more', function(event) {
 			event.preventDefault();
 			var path = window.location.pathname
-			if(path == '/')path = '/page';
-			if(path.indexOf("video") != -1){
-				//path = '/page';
-				path = feedUrl[feedUrl.length - 1];
-				history.pushState({feedUrl}, SITE_NAME, path);
-				//path = window.location.pathname
-				
-			}
-
-			var st = $(this).parent().offset().top;
-			$("body").addClass("loading");
 
 			var page = $("#page").val();
 				page++;
 			$("#page").val(page);
 
-			var u = path+'/'+page;
-			
+			if(path == '/')path = '/page';
+			if(path.indexOf("video") != -1){
+				//path = '/page';
+				path = feedUrl[feedUrl.length - 1].replace(/\/$/, "")+"/page";
+				
+				//path = window.location.pathname
+				console.log(path)
+				var u = path+'/'+page;
+				history.pushState({feedUrl}, SITE_NAME, u);
+			}else{
+				var u = path+'/'+page;
+			}
+
+			var st = $(this).parent().offset().top;
+			$("body").addClass("loading");
+
+			console.log(u)
 
 			$.ajax({
 				type: "GET",
@@ -216,7 +222,7 @@ var AjaxUtils = function(){
 		});
 	};
 
-	this.postData = function(u,d){
+	this.postData = function(u,d, cb){
 		//console.log(u,d)
 		//console.log(arguments.callee.caller.toString())
 		$.ajax({
@@ -224,7 +230,8 @@ var AjaxUtils = function(){
 			url: u, 
 			data: d,
 			success: function(result){
-	        	//console.log(result);
+				//console.log(result);
+				if(typeof cb === 'function')cb(result)
 	    	}
 		});
     };

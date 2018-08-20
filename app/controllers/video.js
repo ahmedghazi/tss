@@ -145,7 +145,7 @@ router.get('/ost/:id', function (req, res, next) {
     return Video
         .findById(req.params.id)
 //        .populate('ost')
-        .populate({path: 'ost', options: { sort: {'_id': 'desc'} }})
+        .populate({path: 'ost', options: { sort: {'order': 'asc'} }})
         .exec(function(err, video) {
             if (err) {
                 return next(err);
