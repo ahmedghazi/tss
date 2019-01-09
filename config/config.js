@@ -26,7 +26,7 @@ var config = {
     app: {
       name: 'tss'
     },
-    port: 3000,
+    port: 8080,
     db: 'mongodb://localhost/tss-production'
   }
 };
